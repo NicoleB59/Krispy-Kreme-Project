@@ -28,14 +28,17 @@ export default function MyApp() {
     // showFirstPage
     const [showFirstPage, setShowFirstPage] = useState(true);
     // Sate for products
-    const [products, getProducts] = useState([]);
+    const [products, getProducts] = useState();
 
     useEffect(() => {
         fetch('/api/getProducts')
+            .then((res) => res.json())
             .then((products) => {   
             getProducts(products)
         })    
     }, []);
+
+console.log(products)
 
     // 3 functions
     function runShowLogin(){
@@ -63,7 +66,7 @@ export default function MyApp() {
     function putInCart(pname){
         console.log("putting in cart= " + pname);
       
-        fetch("/smallapp/api/putInCart?pname=" + pname);
+        fetch("/api/putInCart?pname=" + pname);
 
     }   
 
