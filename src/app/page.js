@@ -27,8 +27,19 @@ export default function MyApp() {
     const [showDash, setShowDash] = useState(false);    
     // showFirstPage
     const [showFirstPage, setShowFirstPage] = useState(true);
-    // Sate for products
+    // State for products
     const [products, getProducts] = useState();
+    // State for 
+    const [weather, setWeatherData] = useState(0)
+
+    useEffect(() => {
+        fetch('/api/getWeather')
+            .then((res) => res.json())
+            .then((weather) => {
+            setWeatherData(weather)
+  
+        })
+    }, [])
 
     useEffect(() => {
         fetch('/api/getProducts')
@@ -37,6 +48,7 @@ export default function MyApp() {
             getProducts(products)
         })    
     }, []);
+
 
 console.log(products)
 

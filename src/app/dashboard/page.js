@@ -21,13 +21,10 @@ export default function Page() {
     // const [weather, setWeatherData] = useState(0)
 
     // useEffect(() => {
-    //     fetch('http://localhost:3000/api/getWeather')
-  
-    //          .then((res) => res.json())
-  
-    //          .then((weather) => {
-  
-    //               setWeatherData(weather)
+    //     fetch('/api/getWeather')
+    //         .then((res) => res.json())
+    //         .then((weather) => {
+    //         setWeatherData(weather)
   
     //     })
     // }, [])
