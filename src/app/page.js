@@ -27,17 +27,22 @@ export default function MyApp() {
     const [showDash, setShowDash] = useState(false);    
     // showFirstPage
     const [showFirstPage, setShowFirstPage] = useState(true);
+    // showManagerDash
+    const [showManagerDash, setshowManagerDash] = useState(false);
+    // showRegister
+    const [showRegister, setshowResgister] = useState(false);
+    // showCheckout
+    const [showCheckout, setshowCheckout] = useState(false);
     // State for products
     const [products, getProducts] = useState();
     // State for 
-    const [weather, setWeatherData] = useState(0)
+    const [weather, setWeatherData] = useState();
 
     useEffect(() => {
         fetch('/api/getWeather')
             .then((res) => res.json())
             .then((weather) => {
             setWeatherData(weather)
-  
         })
     }, [])
 
@@ -50,13 +55,17 @@ export default function MyApp() {
     }, []);
 
 
-console.log(products)
+    console.log(products);
+    console.log(weather);
 
-    // 3 functions
+    // 6 functions
     function runShowLogin(){
         setShowFirstPage(false);
         setShowLogin(true);
         setShowDash(false);
+        setshowManagerDash(false);
+        setshowResgister(false);
+        setshowCheckout(false);
     };
 
     /*
@@ -67,12 +76,45 @@ console.log(products)
         setShowFirstPage(false);
         setShowLogin(false);
         setShowDash(true);
+        setshowManagerDash(false);
+        setshowResgister(false);
+        setshowCheckout(false);
     }
 
     function runShowFirst(){
         setShowFirstPage(true);
         setShowLogin(false);
         setShowDash(false);
+        setshowManagerDash(false);
+        setshowResgister(false);
+        setshowCheckout(false);
+    }
+
+    function runShowRegister(){
+        setShowFirstPage(false);
+        setShowLogin(false);
+        setShowDash(false);
+        setshowManagerDash(false);
+        setshowResgister(true);
+        setshowCheckout(false);
+    }
+
+    function runShowCheckout(){
+        setShowFirstPage(false);
+        setShowLogin(false);
+        setShowDash(false);
+        setshowManagerDash(false);
+        setshowResgister(false);
+        setshowCheckout(true);
+    }
+
+    function runShowManagerDash(){
+        setShowFirstPage(false);
+        setShowLogin(false);
+        setShowDash(false);
+        setshowManagerDash(true);
+        setshowResgister(false);
+        setshowCheckout(false);
     }
 
     function putInCart(pname){
@@ -135,9 +177,7 @@ console.log(products)
             */}
             {showFirstPage &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    This is a very basic application. This has a bar across the top and this box!
-                    How this apps work is by creating two boxes. They are hidden in the background of the page.
-                    It is only when a user clicks one of the buttons, we change the "state" from hidden (false) to show (true)
+                    This box is hidden until you click the button!. Imagine this is one page in your app!
                 </Box>
             }
 
@@ -147,9 +187,27 @@ console.log(products)
                 </Box>
             }
 
+            {showManagerDash &&
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
+                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                </Box>
+            }
+
+            {showRegister &&
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
+                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                </Box>
+            }
+
+            {showCheckout &&
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
+                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                </Box>
+            }
+
             {showDash &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    Let's pretend this is the dashboard! List of products the customer can choose from.
+                    Todays temp: {JSON.stringify(weather.temp)}
                     <h2>Product Dashboard</h2>
                     <div>
                         {   
