@@ -183,37 +183,38 @@ export default function MyApp() {
             */}
             {showFirstPage &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                    Todays temp: {JSON.stringify(weather.temp)}
+
+                    THIS IS THE CUSTOMER PAGE .
                 </Box>
             }
 
             {showLogin &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                    tHIS IS THE LOGIN PAGE
                 </Box>
             }
 
             {showManagerDash &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                    THIS IS THE MANAGER Dashboard.
                 </Box>
             }
 
             {showRegister &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                    THIS IS THE REGISTER PAGE.
                 </Box>
             }
 
             {showCheckout &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    This box is hidden until you click the button!. Imagine this is one page in your app!
+                    THIS IS THE CHECKOUT PAGE
                 </Box>
             }
 
             {showDash &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    Todays temp: {JSON.stringify(weather.temp)}
                     <h2>Product Dashboard</h2>
                     <div>
                         {   
