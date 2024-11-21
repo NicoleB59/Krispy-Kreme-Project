@@ -28,22 +28,20 @@ export default function MyApp() {
     // showFirstPage
     const [showFirstPage, setShowFirstPage] = useState(true);
     // Sate for products
-    const [products, getProducts] = useState(null)
+    const [products, getProducts] = useState([]);
 
     useEffect(() => {
         fetch('http://localhost:3000/api/getProducts')
-            .then((res) => res.json())
             .then((products) => {   
             getProducts(products)
-        })
-        .catch((error) => console.error('Eror fetching product: ', error));
+        })    
     }, []);
 
     // 3 functions
     function runShowLogin(){
-        setShowFirstPage(false)
+        setShowFirstPage(false);
         setShowLogin(true);
-        setShowDash(false)
+        setShowDash(false);
     };
 
     /*
@@ -53,13 +51,13 @@ export default function MyApp() {
     function runShowDash(){
         setShowFirstPage(false);
         setShowLogin(false);
-        setShowDash(true)
+        setShowDash(true);
     }
 
     function runShowFirst(){
         setShowFirstPage(true);
         setShowLogin(false);
-        setShowDash(false)
+        setShowDash(false);
     }
 
     function putInCart(pname){
@@ -139,7 +137,7 @@ export default function MyApp() {
                     Let's pretend this is the dashboard! List of products the customer can choose from.
                     <h2>Product Dashboard</h2>
                     <div>
-                        {
+                        {   
                             products.map((item, i) => (
                                 <div style={{padding: '20px'}} key={i} >
                                     Unique ID: {item._id}

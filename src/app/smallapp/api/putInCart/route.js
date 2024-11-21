@@ -9,19 +9,18 @@ export async function GET(req, res) {
     console.log(pname);
    // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb://root:example@localhost:27017/';
+    const url = 'mongodb+srv://Nicole05:Bula2cao*@kk-application.25nes.mongodb.net/?retryWrites=true&w=majority&appName=KK-application';
     const client = new MongoClient(url);
-    const dbName = 'kk-application'; // database name
+    const dbName = 'Krispy-app'; // database name
     await client.connect();
     console.log('Connected successfully to server');
     const db = client.db(dbName);
-    const collection = db.collection('shopping_cart'); // collection name
+    const collection = db.collection('view_cart'); // collection name
     var myobj = { pname: pname, username: "sample@test.com"};
     const insertResult = await collection.insertOne(myobj);
    //==========================================================
     // at the end of the process we need to send something back.
     return Response.json({ "data":"" + "inserted" + ""})
-  
 }
   
     
