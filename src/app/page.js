@@ -37,6 +37,8 @@ export default function MyApp() {
     const [products, getProducts] = useState();
     // State for weather - temp: 'Loading' ensures that weather.temp is always defined
     const [weather, setWeatherData] = useState({temp: 'Loading..'});
+    // State for orders
+    const [orders, setOrders] = useState();
 
     useEffect(() => {
         fetch('/api/getProducts')
@@ -45,15 +47,6 @@ export default function MyApp() {
             getProducts(products)
         })    
     }, []);
-
-    // useEffect(() => {
-    //     fetch('/api/getWeather')
-    //         .then((res) => res.json())
-    //         .then((weather) => {
-    //             setWeatherData(weather);
-    //     })
-    //     .catch((err) => console.error("Error fetching weather", err));
-    // }, [])
 
     useEffect(() => {
         fetch('/api/getWeather')
@@ -64,9 +57,20 @@ export default function MyApp() {
             .catch((err) => console.error("Error fetching weather", err));
     }, []);
 
+    useEffect(() => {
+        if (showManagerDash) {
+            fetch('/api/getOrders')
+                .then((res) => res.json())
+                .then((orderData) => {
+                    setOrders(orderData); // Update the state with fetched orders
+                })
+                .catch((err) => console.error("Error fetching orders", err));
+        }
+    }, [showManagerDash]); // Fetch orders only when the manager's dashboard is visible
     
     console.log(products);
     console.log(weather);
+    console.log(orders);
 
     // 6 functions
     function runShowLogin(){
@@ -193,11 +197,11 @@ export default function MyApp() {
             */}
             {showFirstPage &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    Todays temp: {weather?.temp ? `${weather.temp}°C` : 'Loading...'}
                     <p>THIS IS THE CUSTOMER PAGE.</p>
                 </Box>
             }
-
+             {/* Login page for the application that will send the user to the correct page based on their account type. 
+             Either to /manager or /customer.*/}
             {showLogin &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
                     tHIS IS THE LOGIN PAGE
@@ -206,25 +210,36 @@ export default function MyApp() {
 
             {showManagerDash &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    THIS IS THE MANAGER Dashboard.
+                    <h2>Manager Dashboard</h2>
+                        <div>
+                            
+                        </div>
                 </Box>
             }
-
+            {/*A register page allowing the user to sign up.*/}
             {showRegister &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    THIS IS THE REGISTER PAGE.
+                    <h2>REGISTER HERE!</h2>
+                    <div>
+
+                    </div>
                 </Box>
             }
-
+            
             {showCheckout &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
                     THIS IS THE CHECKOUT PAGE
                 </Box>
             }
 
+            {/* This is my customer page -  A page showing all the products allowing 
+            the user to select a product and add it to their cart. 
+            Each product should have a title, description, image, and price. 
+            This page should also have the current weather on the top of the page from the weather API.*/}
             {showDash &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    <h2>Product Dashboard</h2>
+                    Todays temp: {weather ? JSON.stringify(weather.temp) : 'Loading...'}
+                    <h2>Products</h2>
                     <div>
                         {   
                             products.map((item, i) => (
