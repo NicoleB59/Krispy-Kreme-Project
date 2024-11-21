@@ -35,16 +35,8 @@ export default function MyApp() {
     const [showCheckout, setshowCheckout] = useState(false);
     // State for products
     const [products, getProducts] = useState();
-    // State for 
-    const [weather, setWeatherData] = useState();
-
-    useEffect(() => {
-        fetch('/api/getWeather')
-            .then((res) => res.json())
-            .then((weather) => {
-            setWeatherData(weather)
-        })
-    }, [])
+    // State for weather - temp: 'Loading' ensures that weather.temp is always defined
+    const [weather, setWeatherData] = useState({temp: 'Loading..'});
 
     useEffect(() => {
         fetch('/api/getProducts')
@@ -54,7 +46,25 @@ export default function MyApp() {
         })    
     }, []);
 
+    // useEffect(() => {
+    //     fetch('/api/getWeather')
+    //         .then((res) => res.json())
+    //         .then((weather) => {
+    //             setWeatherData(weather);
+    //     })
+    //     .catch((err) => console.error("Error fetching weather", err));
+    // }, [])
 
+    useEffect(() => {
+        fetch('/api/getWeather')
+            .then((res) => res.json())
+            .then((weatherData) => {
+                setWeatherData(weatherData); // Update the state with fetched data
+            })
+            .catch((err) => console.error("Error fetching weather", err));
+    }, []);
+
+    
     console.log(products);
     console.log(weather);
 
@@ -183,9 +193,8 @@ export default function MyApp() {
             */}
             {showFirstPage &&
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    Todays temp: {JSON.stringify(weather.temp)}
-
-                    THIS IS THE CUSTOMER PAGE .
+                    Todays temp: {weather?.temp ? `${weather.temp}°C` : 'Loading...'}
+                    <p>THIS IS THE CUSTOMER PAGE.</p>
                 </Box>
             }
 
