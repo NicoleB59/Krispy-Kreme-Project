@@ -163,6 +163,12 @@ export default function MyApp() {
 
                     <Button color="inherit" onClick={runShowDash}>Dashboard</Button>
 
+                    <Button color='inherit' onClick={runShowManagerDash}>ManDash</Button>
+
+                    <Button color='inherit' onClick={runShowCheckout}>Checkout</Button>
+
+                    <Button color='inherit' onClick={runShowRegister}>Register</Button>
+
                 </Toolbar>
 
             </AppBar>
