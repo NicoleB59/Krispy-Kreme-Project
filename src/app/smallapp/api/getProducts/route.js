@@ -4,7 +4,7 @@ export async function GET(req, res) {
     console.log("in the api page");
     // =================================================
     const { MongoClient } = require('mongodb');
-    const url = 'mongodb+srv://Nicole05:Bula2cao*@kk-application.25nes.mongodb.net/?retryWrites=true&w=majority&appName=KK-application';
+    const url = process.env.DB_ADDRESS
     const client = new MongoClient(url);
     const dbName = 'Krispy-app'; // database name
     await client.connect();

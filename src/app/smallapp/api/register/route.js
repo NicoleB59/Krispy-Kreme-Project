@@ -3,7 +3,8 @@ export async function GET(req, res) {
     // the api. This goes to the console.
     console.log("in the register api page")
     // get the values
-    // that were sent across to us.
+    // that were sent across to us
+    const url = process.env.DB_ADDRESS
     const { searchParams } = new URL(req.url)
     const email = searchParams.get('email')
     const pass = searchParams.get('pass')
