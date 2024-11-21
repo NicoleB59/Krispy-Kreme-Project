@@ -31,7 +31,7 @@ export default function MyApp() {
     const [products, getProducts] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/api/getProducts')
+        fetch('/api/getProducts')
             .then((products) => {   
             getProducts(products)
         })    
@@ -63,7 +63,7 @@ export default function MyApp() {
     function putInCart(pname){
         console.log("putting in cart= " + pname);
       
-        fetch("http://localhost:3000/smallapp/api/putInCart?pname=" + pname);
+        fetch("/smallapp/api/putInCart?pname=" + pname);
 
     }   
 
