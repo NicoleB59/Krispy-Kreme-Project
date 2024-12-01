@@ -1,269 +1,256 @@
-/*
-Need to pull in the different functions and features we want to use in the app. 
-These are mainly for using the predefined elements such as a nav bar and buttons etc.
-*/
-'use client'
+'use client';
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Box from '@mui/material/Box';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControl from '@mui/material/FormControl';
+import Radio from '@mui/material/Radio';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-/* 
-Purpose of this is to allow us to use a feature to 
-store boolean values that we can flip from true to false at the click of a button.
-*/
-import {useState, useEffect} from 'react';
+import MenuIcon from '@mui/icons-material/Menu'; // Corrected import for MenuIcon
+import Typography from '@mui/material/Typography'; // Corrected import for Typography
+import { useState, useEffect } from 'react';
+import 'C:\Users\Bulal\Desktop\Rich Web Project\krispy-app\kk-ap\src\app\css';  // Assuming the CSS file is in the same directory as your page.js
 
-// The core “default function” for the app, similar to the main function in Java.
 export default function MyApp() {
-
-    // Three state variables
-    // showLogin
+    // State variables
     const [showLogin, setShowLogin] = useState(false);
-    // showDash
-    const [showDash, setShowDash] = useState(false);    
-    // showFirstPage
-    const [showFirstPage, setShowFirstPage] = useState(true);
-    // showManagerDash
-    const [showManagerDash, setshowManagerDash] = useState(false);
-    // showRegister
-    const [showRegister, setshowResgister] = useState(false);
-    // showCheckout
-    const [showCheckout, setshowCheckout] = useState(false);
-    // State for products
-    const [products, getProducts] = useState();
-    // State for weather - temp: 'Loading' ensures that weather.temp is always defined
-    const [weather, setWeatherData] = useState({temp: 'Loading..'});
-    // State for orders
-    const [orders, setOrders] = useState();
+    const [showDash, setShowDash] = useState(false);
+    // const [showManagerDash, setShowManagerDash] = useState(false);
+    const [showRegister, setShowRegister] = useState(true);
+    const [showCheckout, setShowCheckout] = useState(false);
+    const [products, setProducts] = useState([]);
+    const [weather, setWeatherData] = useState({ temp: 'Loading..' });
+    // const [orders, setOrders] = useState([]);
+    const [role, setRole] = useState('customer');
+    const [loginError, setLoginError] = useState(null); // State to store login error
 
+
+    // Fetch products, weather, and orders
     useEffect(() => {
         fetch('/api/getProducts')
             .then((res) => res.json())
-            .then((products) => {   
-            getProducts(products)
-        })    
-    }, []);
+            .then((products) => setProducts(products));
 
-    useEffect(() => {
         fetch('/api/getWeather')
             .then((res) => res.json())
-            .then((weatherData) => {
-                setWeatherData(weatherData); // Update the state with fetched data
-            })
+            .then((weatherData) => setWeatherData(weatherData))
             .catch((err) => console.error("Error fetching weather", err));
     }, []);
 
-    useEffect(() => {
-        if (showManagerDash) {
-            fetch('/api/getOrders')
-                .then((res) => res.json())
-                .then((orderData) => {
-                    setOrders(orderData); // Update the state with fetched orders
-                })
-                .catch((err) => console.error("Error fetching orders", err));
-        }
-    }, [showManagerDash]); // Fetch orders only when the manager's dashboard is visible
-    
-    console.log(products);
-    console.log(weather);
-    console.log(orders);
+    // useEffect(() => {
+    //     if (showManagerDash) {
+    //         fetch('/api/getOrders')
+    //             .then((res) => res.json())
+    //             .then((orderData) => setOrders(orderData))
+    //             .catch((err) => console.error("Error fetching orders", err));
+    //     }
+    // }, [showManagerDash]);
 
-    // 6 functions
-    function runShowLogin(){
-        setShowFirstPage(false);
-        setShowLogin(true);
-        setShowDash(false);
-        setshowManagerDash(false);
-        setshowResgister(false);
-        setshowCheckout(false);
+    // Handle role change
+    const handleRoleChange = (event) => {
+        setRole(event.target.value);
     };
 
-    /*
-    When we click a button and we want to show the dashboard, we can make a call to the runShowDash() function. 
-    It will hide the first page, hide the login and then show the dashboard by setting it to true.
-    */
-    function runShowDash(){
-        setShowFirstPage(false);
+    // Function to handle form submission for registration
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const email = data.get('email');
+        const pass = data.get('pass');
+        const telephone = data.get('telephone');
+        const name = data.get('name');
+        
+        console.log("Sent email:", email);
+        console.log("Sent pass:", pass);
+        console.log("Sent telephone:", telephone);
+        console.log("Sent name:", name);
+        console.log("Role selected:", role);
+
+        runDBCallAsync(`/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}&role=${role}`);
+    };
+
+    const handleLoginSubmit = (event) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        const email = data.get('email');
+        const pass = data.get('pass');
+        
+        console.log("Login email:", email);
+        console.log("Login pass:", pass);
+
+        // Call the API to verify login credentials
+        runLoginCallAsync(`/api/login?email=${email}&pass=${pass}`);
+    };
+
+    async function runDBCallAsync(url) {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.data === "valid") {
+            console.log("Registration is valid!");
+        } else {
+            console.log("Registration failed");
+        }
+    }
+
+    async function runLoginCallAsync(url) {
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.data === "valid") {
+            console.log("Login successful!");
+            setShowLogin(false);
+            setShowDash(true);
+            setLoginError(null); // Clear error if login is successful
+        } else {
+            console.log("Login failed");
+            setLoginError("Invalid email or password");
+        }
+    }
+
+    // Functions to show different pages
+    function runShowLogin() {
+        setShowLogin(true);
+        setShowDash(false);
+        // setShowManagerDash(false);
+        setShowRegister(false);
+        setShowCheckout(false);
+    }
+
+    function runShowDash() {
         setShowLogin(false);
         setShowDash(true);
-        setshowManagerDash(false);
-        setshowResgister(false);
-        setshowCheckout(false);
+        // setShowManagerDash(false);
+        setShowRegister(false);
+        setShowCheckout(false);
     }
 
-    function runShowFirst(){
-        setShowFirstPage(true);
+    function runShowRegister() {
         setShowLogin(false);
         setShowDash(false);
-        setshowManagerDash(false);
-        setshowResgister(false);
-        setshowCheckout(false);
+        // setShowManagerDash(false);
+        setShowRegister(true);
+        setShowCheckout(false);
     }
 
-    function runShowRegister(){
+    function runShowCheckout() {
+        setShowLogin(false);
+        setShowDash(false);
+        // setShowManagerDash(false);
+        setShowRegister(false);
+        setShowCheckout(true);
+    }
+
+    function runShowManagerDash() {
         setShowFirstPage(false);
         setShowLogin(false);
         setShowDash(false);
-        setshowManagerDash(false);
-        setshowResgister(true);
-        setshowCheckout(false);
+        // setShowManagerDash(true);
+        setShowRegister(false);
+        setShowCheckout(false);
     }
 
-    function runShowCheckout(){
-        setShowFirstPage(false);
-        setShowLogin(false);
-        setShowDash(false);
-        setshowManagerDash(false);
-        setshowResgister(false);
-        setshowCheckout(true);
+    // Function to add products to the cart
+    function putInCart(pname) {
+        console.log("Putting in cart:", pname);
+        fetch(`/api/putInCart?pname=${pname}`);
     }
 
-    function runShowManagerDash(){
-        setShowFirstPage(false);
-        setShowLogin(false);
-        setShowDash(false);
-        setshowManagerDash(true);
-        setshowResgister(false);
-        setshowCheckout(false);
-    }
-
-    function putInCart(pname){
-        console.log("putting in cart= " + pname);
-      
-        fetch("/api/putInCart?pname=" + pname);
-
-    }   
-
-    /*
-    Add in the return() statement that is used to send all the app content back to the user.
-    This is where we define the look of the app by using a MUI NavBar component. 
-    The code within the AppBar is the core elements building up the nav bar with three butons.
-    */
     return (
-
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                 <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        
-                    <MenuIcon />
+                    <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                        <MenuIcon />
                     </IconButton>
-
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-
-                        MyApp
-
+                        KrispyKreme
                     </Typography>
-
-                    {/*
-                    Each has an onClick attribute.
-                    First button - it will call the runShowFirst() function 
-                    whose job it is to hide the content from the user for the login and the dashboard, 
-                    and only show them the first page.
-                    */}
-                    <Button color="inherit" onClick={runShowFirst}>First</Button>
-
-                    <Button color="inherit" onClick={runShowLogin}>Login</Button>
-
-                    <Button color="inherit" onClick={runShowDash}>Dashboard</Button>
-
-                    <Button color='inherit' onClick={runShowManagerDash}>ManDash</Button>
-
-                    <Button color='inherit' onClick={runShowCheckout}>Checkout</Button>
-
                     <Button color='inherit' onClick={runShowRegister}>Register</Button>
-
+                    <Button color="inherit" onClick={runShowLogin}>Login</Button>
+                    <Button color="inherit" onClick={runShowDash}>Dashboard</Button>
+                    <Button color='inherit' onClick={runShowManagerDash}>ManDash</Button>
+                    <Button color='inherit' onClick={runShowCheckout}>Checkout</Button>
                 </Toolbar>
-
             </AppBar>
-            
-            {/*
-            Each of these are using the “box” component. 
-            At the top of each block you will notice there is a variable and a set of && operators.
 
-            when the showFirstPage variable is set to true, it will show the box block of code beside it. 
-            The same goes for the showLogin. 
-            If the variable is set to true, then we show the block of code beside it to the user.
-            */}
-            {showFirstPage &&
+            {showLogin && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    <p>THIS IS THE CUSTOMER PAGE.</p>
-                </Box>
-            }
-             {/* Login page for the application that will send the user to the correct page based on their account type. 
-             Either to /manager or /customer.*/}
-            {showLogin &&
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    tHIS IS THE LOGIN PAGE
-                </Box>
-            }
+                    <h2>Login Page</h2>
+                    <Box component="form" onSubmit={handleLoginSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+                        <TextField margin="normal" required fullWidth name="pass" label="Password" type="password" id="pass" />
 
-            {showManagerDash &&
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
+                        {loginError && <Typography color="error">{loginError}</Typography>}
+
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                            Login
+                        </Button>
+                    </Box>
+                </Box>
+            )}
+
+            {/* {showManagerDash && (
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
                     <h2>Manager Dashboard</h2>
-                        <div>
-                            
-                        </div>
-                </Box>
-            }
-            {/*A register page allowing the user to sign up.*/}
-            {showRegister &&
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    <h2>REGISTER HERE!</h2>
                     <div>
-
+                         Manager-specific content goes here 
                     </div>
                 </Box>
-            }
-            
-            {showCheckout &&
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
+            )} */} 
+
+            {showRegister && (
+                <Box sx={{ height: '100vh' }}>
+                    <h2>Registration Page</h2>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+                        <TextField margin="normal" required fullWidth name="pass" label="Password" type="password" id="pass" />
+                        <TextField margin="normal" required fullWidth name="name" label="Name" type="text" id="name" autoFocus />
+                        <TextField margin="normal" required fullWidth name="telephone" label="Telephone" type="tel" id="telephone" />
+                        
+                        {/* Role selection */}
+                        <FormControl component="fieldset" margin="normal">
+                            <RadioGroup row aria-label="role" name="role" value={role} onChange={handleRoleChange}>
+                                <FormControlLabel value="customer" control={<Radio />} label="Customer" />
+                                <FormControlLabel value="manager" control={<Radio />} label="Manager" />
+                            </RadioGroup>
+                        </FormControl>
+                        <br></br>
+                        {/* Remember me checkbox */}
+                        <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+                        
+                        {/* Submit button */}
+                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                            Register
+                        </Button>
+                    </Box>
+                </Box>
+            )}
+
+            {showCheckout && (
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
                     THIS IS THE CHECKOUT PAGE
                 </Box>
-            }
+            )}
 
-            {/* This is my customer page -  A page showing all the products allowing 
-            the user to select a product and add it to their cart. 
-            Each product should have a title, description, image, and price. 
-            This page should also have the current weather on the top of the page from the weather API.*/}
-            {showDash &&
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey'}}>
-                    Todays temp: {weather ? JSON.stringify(weather.temp) : 'Loading...'}
+            {showDash && (
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+                    Todays temp: {weather.temp}
                     <h2>Products</h2>
                     <div>
-                        {   
-                            products.map((item, i) => (
-                                <div style={{padding: '20px'}} key={i} >
-                                    Unique ID: {item._id}
-                                    <br></br>
-                                    {item.pname}
-                                    -
-                                    {item.price}
-                                    <br></br>
-                                    <Button onClick={() => (putInCart(item.pname))} variant="outlined"> Add to cart </Button>
-                                </div>
-                            ))
-                        }
+                        {products.map((item, i) => (
+                            <div style={{ padding: '20px' }} key={i}>
+                                Unique ID: {item._id}<br />
+                                {item.pname} - {item.price}<br />
+                                <Button onClick={() => putInCart(item.pname)} variant="outlined">Add to cart</Button>
+                            </div>
+                        ))}
                     </div>
                 </Box>
-            }
-
+            )}
         </Box>
-        /*
-        To build a multi-screen app, you can create different `<Box>` components for each screen (e.g., dashboard, login, register) on the same page. 
-        Each screen is controlled by a state variable that toggles between `true` (visible) and `false` (hidden). 
-        When a user clicks a button in the navbar, the corresponding state is set to `true`, displaying that screen. 
-        This approach reduces server requests, as all content is already loaded and only shown as needed.
-        */
     );
 }

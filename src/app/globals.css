@@ -1,7 +1,18 @@
-:root {
+/* :root {
   --background: #ffffff;
   --foreground: #171717;
+} */
+
+:root {
+  --background: #ffffff; /* White background for light theme */
+  --foreground: #171717; /* Dark text color */
+  --primary-color: #cc0000; /* Krispy Kreme Red */
+  --secondary-color: #2e7d32; /* Krispy Kreme Green */
+  --highlight-color: #f8f8f8; /* Subtle off-white background */
+  --button-color: #e74c3c; /* Bright button color */
+  --button-text: #ffffff; /* White text for buttons */
 }
+
 
 @media (prefers-color-scheme: dark) {
   :root {
