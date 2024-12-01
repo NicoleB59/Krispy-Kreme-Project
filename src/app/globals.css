@@ -258,15 +258,52 @@ button:hover, .MuiButton-root:hover {
   margin-top: 10px;
 }
 
+/* Style for the product card in showDash */
+.showDash-card {
+  display: flex; /* Use flexbox */
+  flex-direction: column; /* Stack items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  height: 100%; /* Ensure the box takes up full height */
+}
+
+.showDash-card:hover {
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Style for the product title in showDash */
+.showDash-card-title {
+  margin-bottom: 16px;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #333;
+  text-align: center; /* Ensure text is centered */
+}
+
+/* Style for the product price in showDash */
+.showDash-card-price {
+  margin-bottom: 16px;
+  font-size: 1rem;
+  color: #666;
+  text-align: center; /* Ensure text is centered */
+}
+
 /* Style for the button in showDash */
 .showDash-card-button {
   margin-top: 16px;
   background-color: var(--primary-color);
+  color: var(--button-text);
   border-radius: 5px;
   padding: 10px 16px;
   font-weight: bold;
   text-transform: uppercase;
-  text-align: center;
+  transition: background-color 0.3s ease;
 }
 
 .showDash-card-button:hover {

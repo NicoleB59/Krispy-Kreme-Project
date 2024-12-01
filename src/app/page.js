@@ -27,13 +27,13 @@ export default function MyApp() {
     // State variables
     const [showLogin, setShowLogin] = useState(false);
     const [showDash, setShowDash] = useState(false);
-    // const [showManagerDash, setShowManagerDash] = useState(false);
     const [showRegister, setShowRegister] = useState(false);
     const [showCheckout, setShowCheckout] = useState(false);
     const [showHome, setShowHome] = useState(true);
+    const [showCart, setShowCart] = useState(false);
     const [products, setProducts] = useState([]);
     const [weather, setWeatherData] = useState({ temp: 'Loading..' });
-    // const [orders, setOrders] = useState([]);
+    const [cart, setCart] = useState([]); 
     const [role, setRole] = useState('customer');
     const [loginError, setLoginError] = useState(null); // State to store login error
 
@@ -48,6 +48,11 @@ export default function MyApp() {
             .then((res) => res.json())
             .then((weatherData) => setWeatherData(weatherData))
             .catch((err) => console.error("Error fetching weather", err));
+
+            fetch('/api/getCart')
+            .then((res) => res.json())
+            .then((cartItems) => setCart(cartItems))
+            .catch((err) => console.error("Error fetching cart items:", err));
     }, []);
 
     // Handle role change
@@ -114,10 +119,10 @@ export default function MyApp() {
     function runShowLogin() {
         setShowLogin(true);
         setShowDash(false);
-        // setShowManagerDash(false);
         setShowRegister(false);
         setShowCheckout(false);
         setShowHome(false);
+        setShowCart(false);
     }
 
     function runShowDash() {
@@ -126,6 +131,7 @@ export default function MyApp() {
         setShowRegister(false);
         setShowCheckout(false);
         setShowHome(false);
+        setShowCart(false);
     }
 
     function runShowRegister() {
@@ -134,6 +140,7 @@ export default function MyApp() {
         setShowRegister(true);
         setShowCheckout(false);
         setShowHome(false);
+        setShowCart(false);
     }
 
     function runShowCheckout() {
@@ -142,6 +149,7 @@ export default function MyApp() {
         setShowRegister(false);
         setShowCheckout(true);
         setShowHome(false);
+        setShowCart(false);
     }
 
     function runShowHome() {
@@ -150,6 +158,16 @@ export default function MyApp() {
         setShowDash(false);
         setShowRegister(false);
         setShowCheckout(false);
+        setShowCart(false);
+    }
+
+    function runShowCart(){
+        setShowHome(false);
+        setShowLogin(false);
+        setShowDash(false);
+        setShowRegister(false);
+        setShowCheckout(false);
+        setShowCart(true);
     }
     
     // Function to add products to the cart
@@ -172,6 +190,7 @@ export default function MyApp() {
                     <Button color="inherit" onClick={runShowDash}>Store</Button>
                     <Button color='inherit' onClick={runShowRegister}>Register</Button>
                     <Button color="inherit" onClick={runShowLogin}>Login</Button>
+                    <Button color="inherit" onClick={runShowCart}>View Cart</Button>
                     <Button color='inherit' onClick={runShowCheckout}>Checkout</Button>
                 </Toolbar>
             </AppBar>
@@ -298,6 +317,28 @@ export default function MyApp() {
             {showCheckout && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
                     THIS IS THE CHECKOUT PAGE
+                </Box>
+            )}
+            {showCart && (
+                <Box sx={{ p: 2 }}>
+                    <Typography variant="h4" sx={{ textAlign: 'center' }}>
+                        Your Shopping Cart
+                    </Typography>
+                    <Grid container spacing={2} sx={{ mt: 2 }}>
+                        {cart.map((item, i) => (
+                            <Grid item xs={12} sm={6} md={4} key={i}>
+                                <div className="cart-card">
+                                    <Typography variant="h6">{item.pname}</Typography>
+                                    <Typography variant="body2">Price: €{item.price}</Typography>
+                                </div>
+                            </Grid>
+                        ))}
+                        {cart.length === 0 && (
+                            <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
+                                Your cart is empty!
+                            </Typography>
+                        )}
+                    </Grid>
                 </Box>
             )}
 
