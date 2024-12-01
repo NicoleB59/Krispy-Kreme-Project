@@ -23,7 +23,6 @@ import DoubleDozen from "./images/double_dozen.png";
 import birthdayPack from "./images/birthday_pack.png"
 import PromBanner from "./images/Promo.png";
 import Grid from "@mui/material/Grid";
-import { ImportContacts } from '@mui/icons-material';
 
 
 export default function MyApp() {
@@ -242,8 +241,7 @@ export default function MyApp() {
                 </Toolbar>
             </AppBar>
 
-             
-
+            
             {showHome && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }} className="home-page">
                         {/*current temperature fetched from the API*/}
@@ -321,8 +319,6 @@ export default function MyApp() {
                     </div>
                 </Box>
             )}
-
-
             {showLogin && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }} className="login-form">
                     <h2>Login Page</h2>
