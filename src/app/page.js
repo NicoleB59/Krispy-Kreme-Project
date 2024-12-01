@@ -13,6 +13,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu'; 
 import Typography from '@mui/material/Typography'; 
+import Menu from '@mui/material/Menu';
+import MenuItem from "@mui/material/MenuItem"
 import { useState, useEffect } from 'react';
 import Image from 'next/image'; 
 import KrispyKemeLogo from "./images/Krispy_Kreme_logo.png";
@@ -21,6 +23,7 @@ import DoubleDozen from "./images/double_dozen.png";
 import birthdayPack from "./images/birthday_pack.png"
 import PromBanner from "./images/Promo.png";
 import Grid from "@mui/material/Grid";
+import { ImportContacts } from '@mui/icons-material';
 
 
 export default function MyApp() {
@@ -36,8 +39,33 @@ export default function MyApp() {
     const [cart, setCart] = useState([]); 
     const [role, setRole] = useState('customer');
     const [loginError, setLoginError] = useState(null); // State to store login error
+    const [drawerOpen, setDrawerOpen] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null); // For dropdown menu
 
+    // Open dropdown menu
+    const handleMenuClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
 
+    // Close dropdown menu
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    // Toggle drawer (mobile menu)
+    const toggleDrawer = () => {
+        setDrawerOpen(!drawerOpen);
+    };
+
+    const menuItems = [
+        { label: 'Home', action: () => console.log('Home clicked') },
+        { label: 'Store', action: () => console.log('Store clicked') },
+        { label: 'Register', action: () => console.log('Register clicked') },
+        { label: 'Login', action: () => console.log('Login clicked') },
+        { label: 'Cart', action: () => console.log(runShowCart) },
+        { label: 'Checkout', action: () => console.log(runShowCheckout) }
+    ];
+    
     // Fetch products, weather, and orders
     useEffect(() => {
         fetch('/api/getProducts')
@@ -59,6 +87,7 @@ export default function MyApp() {
     const handleRoleChange = (event) => {
         setRole(event.target.value);
     };
+
 
     // Function to handle form submission for registration
     const handleSubmit = (event) => {
@@ -181,7 +210,17 @@ export default function MyApp() {
             <AppBar position="static">
                 <Toolbar>
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                        <MenuIcon />
+                        {/* Desktop Dropdown Menu */}
+                        <Button color="inherit" onClick={handleMenuClick}><MenuIcon /></Button>
+                        <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleMenuClose}
+                        >
+                        {menuItems.map((item, index) => (
+                            <MenuItem key={index} onClick={item.action}>{item.label}</MenuItem>
+                        ))}
+                    </Menu>
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Image src={KrispyKemeLogo} alt="Krispy Kreme" height={50}/>
@@ -190,10 +229,10 @@ export default function MyApp() {
                     <Button color="inherit" onClick={runShowDash}>Store</Button>
                     <Button color='inherit' onClick={runShowRegister}>Register</Button>
                     <Button color="inherit" onClick={runShowLogin}>Login</Button>
-                    <Button color="inherit" onClick={runShowCart}>View Cart</Button>
-                    <Button color='inherit' onClick={runShowCheckout}>Checkout</Button>
                 </Toolbar>
             </AppBar>
+
+             
 
             {showHome && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }} className="home-page">
