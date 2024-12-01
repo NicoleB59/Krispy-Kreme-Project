@@ -1,8 +1,3 @@
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
-} */
-
 :root {
   --background: #ffffff; 
   --foreground: #171717; 
@@ -23,7 +18,8 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  height: 100%;
+  overflow: hidden;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -53,9 +49,9 @@ a {
 }
 
 h1, h2, h3, h4 {
-  padding-top: 30px;
   font-weight: bold;
-  color: var(--primary-color); /* Krispy Kreme Red for headings */
+  font-family:'Times New Roman', Times, serif;
+  color: var(--primary-color); 
   text-align: center;
 }
 
@@ -156,5 +152,124 @@ button:hover, .MuiButton-root:hover {
 }
 
 
+/* Add a flexbox container for centering */
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure the form takes the full height */
+}
 
+/* Adjust the form to be in the middle of the screen */
+.centered-form form {
+  width: 100%;
+  text-align: center;
+  max-width: 450px;
+  padding: 10px;
+  padding-top: 25px; /* Add padding to the top */
+  background-color: var(--highlight-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent form from overflowing */
+}
+
+.centered-form h2 {
+  text-align: center;
+  color: var(--primary-color);
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 20px;
+  padding-top: 25px; /* Add padding to the top */
+}
+
+/* Style for the radio buttons and checkbox for alignment */
+.centered-form .MuiFormControl-root {
+  margin-bottom: 20px; /* Space between each control */
+}
+
+/* Ensure the button is centered */
+.centered-form button {
+  width: 100%;
+  text-align: center;
+  max-width: 300px; /* Optional: You can adjust the button width */
+  background-color: var(--primary-color);
+  color: var(--button-text);
+  border-radius: 5px;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Login Form Specific Styles */
+
+/* Centering the Login Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Ensure the form takes the full height */
+}
+
+/* Login Form Container */
+.login-form form {
+  width: 100%;
+  text-align: center;
+  max-width: 450px;
+  padding: 10px;
+  padding-top: 25px; /* Add padding to the top */
+  background-color: var(--highlight-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Prevent form from overflowing */
+}
+
+/* Login Form Header */
+.login-form h2 {
+  text-align: center;
+  color: var(--primary-color);
+  font-family: 'Times New Roman', Times, serif;
+  margin-bottom: 20px;
+  padding-top: 25px; /* Add padding to the top */
+}
+
+/* Style for the radio buttons and checkbox for alignment */
+.login-form .MuiFormControl-root {
+  margin-bottom: 20px; /* Space between each control */
+}
+
+/* Ensure the login button is centered */
+.login-form button {
+  width: 100%;
+  text-align: center;
+  max-width: 300px; /* Optional: You can adjust the button width */
+  background-color: var(--primary-color);
+  color: var(--button-text);
+  border-radius: 5px;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* Style for login error message */
+.login-form .MuiTypography-root {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Style for the button in showDash */
+.showDash-card-button {
+  margin-top: 16px;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  padding: 10px 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.showDash-card-button:hover {
+  background-color: var(--secondary-color);
+}
 

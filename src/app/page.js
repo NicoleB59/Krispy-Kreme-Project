@@ -14,7 +14,13 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu'; 
 import Typography from '@mui/material/Typography'; 
 import { useState, useEffect } from 'react';
-import KrispyKemeLogo from "./images/KrispyKremeLogo.png";
+import Image from 'next/image'; 
+import KrispyKemeLogo from "./images/Krispy_Kreme_logo.png";
+import DozenBox from "./images/dozen.png";
+import DoubleDozen from "./images/double_dozen.png";
+import birthdayPack from "./images/birthday_pack.png"
+import PromBanner from "./images/Promo.png";
+import Grid from "@mui/material/Grid";
 
 
 export default function MyApp() {
@@ -22,8 +28,9 @@ export default function MyApp() {
     const [showLogin, setShowLogin] = useState(false);
     const [showDash, setShowDash] = useState(false);
     // const [showManagerDash, setShowManagerDash] = useState(false);
-    const [showRegister, setShowRegister] = useState(true);
+    const [showRegister, setShowRegister] = useState(false);
     const [showCheckout, setShowCheckout] = useState(false);
+    const [showHome, setShowHome] = useState(true);
     const [products, setProducts] = useState([]);
     const [weather, setWeatherData] = useState({ temp: 'Loading..' });
     // const [orders, setOrders] = useState([]);
@@ -42,15 +49,6 @@ export default function MyApp() {
             .then((weatherData) => setWeatherData(weatherData))
             .catch((err) => console.error("Error fetching weather", err));
     }, []);
-
-    // useEffect(() => {
-    //     if (showManagerDash) {
-    //         fetch('/api/getOrders')
-    //             .then((res) => res.json())
-    //             .then((orderData) => setOrders(orderData))
-    //             .catch((err) => console.error("Error fetching orders", err));
-    //     }
-    // }, [showManagerDash]);
 
     // Handle role change
     const handleRoleChange = (event) => {
@@ -119,41 +117,41 @@ export default function MyApp() {
         // setShowManagerDash(false);
         setShowRegister(false);
         setShowCheckout(false);
+        setShowHome(false);
     }
 
     function runShowDash() {
         setShowLogin(false);
         setShowDash(true);
-        // setShowManagerDash(false);
         setShowRegister(false);
         setShowCheckout(false);
+        setShowHome(false);
     }
 
     function runShowRegister() {
         setShowLogin(false);
         setShowDash(false);
-        // setShowManagerDash(false);
         setShowRegister(true);
         setShowCheckout(false);
+        setShowHome(false);
     }
 
     function runShowCheckout() {
         setShowLogin(false);
         setShowDash(false);
-        // setShowManagerDash(false);
         setShowRegister(false);
         setShowCheckout(true);
+        setShowHome(false);
     }
 
-    function runShowManagerDash() {
-        setShowFirstPage(false);
+    function runShowHome() {
+        setShowHome(true);
         setShowLogin(false);
         setShowDash(false);
-        // setShowManagerDash(true);
         setShowRegister(false);
         setShowCheckout(false);
     }
-
+    
     // Function to add products to the cart
     function putInCart(pname) {
         console.log("Putting in cart:", pname);
@@ -168,23 +166,100 @@ export default function MyApp() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <Image src={KrispyKemeLogo} alt="Krispy Kreme" height={50} />
+                        <Image src={KrispyKemeLogo} alt="Krispy Kreme" height={50}/>
                     </Typography>
+                    <Button color='inherit' onClick={runShowHome}>Home</Button>
+                    <Button color="inherit" onClick={runShowDash}>Store</Button>
                     <Button color='inherit' onClick={runShowRegister}>Register</Button>
                     <Button color="inherit" onClick={runShowLogin}>Login</Button>
-                    <Button color="inherit" onClick={runShowDash}>Dashboard</Button>
-                    {/* <Button color='inherit' onClick={runShowManagerDash}>ManDash</Button> */}
                     <Button color='inherit' onClick={runShowCheckout}>Checkout</Button>
                 </Toolbar>
             </AppBar>
 
+            {showHome && (
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }} className="home-page">
+                    <div>
+                        <Typography variant="h4" component="h1" sx={{ mt: 2, textAlign: 'center' }}>
+                            Welcome to Krispy Kreme!
+                        </Typography>
+                        <Typography variant="body1" sx={{ mt: 2, textAlign: 'center' }}>
+                            Browse our delicious range of doughnuts and more!
+                        </Typography>
+
+                        {/* Image Section */}
+                        <Box sx={{ display: 'flex', justifyContent: 'space-around', mt: 4 }}>
+                            <Box sx={{ textAlign: 'center' }}>
+                                <Image src={DozenBox} 
+                                    alt="Dozen Box" 
+                                    width={200} 
+                                    height={200} 
+                                    onClick={() => setShowHome(false) || setShowDash(true)} 
+                                    style={{ cursor: 'pointer' }} />
+                                <Typography variant="body2">GRAB A DOZEN!</Typography>
+                            </Box>
+                            <Box sx={{ textAlign: 'center' }}>
+                                <Image src={DoubleDozen} 
+                                    alt="Double Dozen" 
+                                    width={200} 
+                                    height={200} 
+                                    onClick={() => setShowHome(false) || setShowDash(true)} 
+                                    style={{ cursor: 'pointer' }}
+                                />
+                                <Typography variant="body2">GRAB DOUBLE THE DOZEN!!</Typography>
+                            </Box>
+                            <Box sx={{ textAlign: 'center' }}>
+                                <Image src={birthdayPack} 
+                                    alt="Birthday Pack" 
+                                    width={200} 
+                                    height={200} 
+                                    onClick={() => setShowHome(false) || setShowDash(true)} 
+                                    style={{ cursor: 'pointer' }}
+                                />
+                                <Typography variant="body2">RAISE THE DOUGHBIRTH!!</Typography>
+                            </Box>
+                        </Box>
+
+                        {/* Wide Image Section */}
+                        <Box sx={{ mt: 4, textAlign: 'center' }}>
+                            <Image src={PromBanner} alt="Wide Promo" width={800} height={150} />
+                            <Typography variant="body2" sx={{ mt: 2 }}>
+                                Discover more deliciousness at Krispy Kreme!
+                            </Typography>
+                        </Box>
+
+                        {/* Footer Section */}
+                        <Box
+                            component="footer"
+                            sx={{
+                                mt: 4,
+                                p: 2,
+                                backgroundColor: '#f8f8f8',
+                                borderTop: '1px solid #ddd',
+                                textAlign: 'center',
+                            }}
+                        >
+                            <Typography variant="body2">
+                                &copy; {new Date().getFullYear()} Krispy Kreme. All Rights Reserved.
+                            </Typography>
+                            <Typography variant="body2" sx={{ mt: 1 }}>
+                                Follow us on: 
+                                <a href="https://facebook.com" style={{ marginLeft: 8, textDecoration: 'none' }}>Facebook</a> | 
+                                <a href="https://instagram.com" style={{ marginLeft: 8, textDecoration: 'none' }}>Instagram</a> | 
+                                <a href="https://twitter.com" style={{ marginLeft: 8, textDecoration: 'none' }}>Twitter</a>
+                            </Typography>
+                        </Box>
+                    </div>
+                </Box>
+            )}
+
+
             {showLogin && (
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }} className="login-form">
                     <h2>Login Page</h2>
                     <Box component="form" onSubmit={handleLoginSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
                         <TextField margin="normal" required fullWidth name="pass" label="Password" type="password" id="pass" />
-
+                        
                         {loginError && <Typography color="error">{loginError}</Typography>}
 
                         <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
@@ -193,44 +268,33 @@ export default function MyApp() {
                     </Box>
                 </Box>
             )}
-
-            {/* {showManagerDash && (
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    <h2>Manager Dashboard</h2>
-                    <div>
-                         Manager-specific content goes here 
-                    </div>
-                </Box>
-            )} */} 
-
             {showRegister && (
-                <Box sx={{ height: '100vh' }}>
+                <Box className="centered-form">
                     <h2>Registration Page</h2>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                        <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
-                        <TextField margin="normal" required fullWidth name="pass" label="Password" type="password" id="pass" />
-                        <TextField margin="normal" required fullWidth name="name" label="Name" type="text" id="name" autoFocus />
-                        <TextField margin="normal" required fullWidth name="telephone" label="Telephone" type="tel" id="telephone" />
-                        
-                        {/* Role selection */}
-                        <FormControl component="fieldset" margin="normal">
-                            <RadioGroup row aria-label="role" name="role" value={role} onChange={handleRoleChange}>
-                                <FormControlLabel value="customer" control={<Radio />} label="Customer" />
-                                <FormControlLabel value="manager" control={<Radio />} label="Manager" />
-                            </RadioGroup>
-                        </FormControl>
-                        <br></br>
-                        {/* Remember me checkbox */}
-                        <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
-                        
-                        {/* Submit button */}
-                        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-                            Register
-                        </Button>
+                    <TextField margin="normal" required fullWidth id="email" label="Email Address" name="email" autoComplete="email" />
+                    <TextField margin="normal" required fullWidth name="pass" label="Password" type="password" id="pass" />
+                    <TextField margin="normal" required fullWidth name="name" label="Name" type="text" id="name" autoFocus />
+                    <TextField margin="normal" required fullWidth name="telephone" label="Telephone" type="tel" id="telephone" />
+                    
+                    {/* Role selection */}
+                    <FormControl component="fieldset" margin="normal">
+                        <RadioGroup row aria-label="role" name="role" value={role} onChange={handleRoleChange}>
+                        <FormControlLabel value="customer" control={<Radio />} label="Customer" />
+                        <FormControlLabel value="manager" control={<Radio />} label="Manager" />
+                        </RadioGroup>
+                    </FormControl>
+                    <br />
+                    {/* Remember me checkbox */}
+                    <FormControlLabel control={<Checkbox value="remember" color="primary" />} label="Remember me" />
+                    
+                    {/* Submit button */}
+                    <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+                        Register
+                    </Button>
                     </Box>
                 </Box>
             )}
-
             {showCheckout && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
                     THIS IS THE CHECKOUT PAGE
@@ -238,19 +302,36 @@ export default function MyApp() {
             )}
 
             {showDash && (
-                <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    Todays temp: {weather.temp}
-                    <h2>Products</h2>
-                    <div>
-                        {products.map((item, i) => (
-                            <div style={{ padding: '20px' }} key={i}>
-                                Unique ID: {item._id}<br />
-                                {item.pname} - {item.price}<br />
-                                <Button onClick={() => putInCart(item.pname)} variant="outlined">Add to cart</Button>
+                <Grid container spacing={2} sx={{ mt: 2 }}>
+                    {products.map((item, i) => (
+                        <Grid item xs={12} sm={6} md={4} key={i}>
+                            <div className="showDash-card">
+                                <Typography
+                                    variant="h6"
+                                    component="div"
+                                    className="showDash-card-title"
+                                >
+                                    Unique ID: {item._id}
+                                    <br />
+                                    {item.pname}
+                                </Typography>
+                                <Typography
+                                    variant="body2"
+                                    color="textSecondary"
+                                    className="showDash-card-price"
+                                >
+                                    Price: €{item.price}
+                                </Typography>
+                                <Button
+                                    onClick={() => putInCart(item.pname)}
+                                    className="showDash-card-button"
+                                >
+                                    Add to Cart
+                                </Button>
                             </div>
-                        ))}
-                    </div>
-                </Box>
+                        </Grid>
+                    ))}
+                </Grid>
             )}
         </Box>
     );
