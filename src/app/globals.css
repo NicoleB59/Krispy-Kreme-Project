@@ -99,8 +99,8 @@ button:hover, .MuiButton-root:hover {
 }
 
 .MuiAppBar-root {
-  background-color: var(--primary-color); /* Red background */
-  color: white; /* White text */
+  background-color: var(--primary-color); 
+  color: white; 
 }
 
 .MuiToolbar-root {
