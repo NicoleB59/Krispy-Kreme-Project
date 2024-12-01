@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu'; // Corrected import for MenuIcon
 import Typography from '@mui/material/Typography'; // Corrected import for Typography
 import { useState, useEffect } from 'react';
-import 'C:\Users\Bulal\Desktop\Rich Web Project\krispy-app\kk-ap\src\app\css';  // Assuming the CSS file is in the same directory as your page.js
+import 'C:/Users/Bulal/Desktop/Rich Web Project/krispy-app/kk-ap/src/app/css/KrispyMain.css';  // Assuming the CSS file is in the same directory as your page.js
 
 export default function MyApp() {
     // State variables
@@ -167,12 +167,12 @@ export default function MyApp() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        KrispyKreme
+                        <img src="C:\Users\Bulal\Desktop\Rich Web Project\krispy-app\kk-ap\src\app\images\KrispyKremeLogo.png" alt="Krispy Kreme" style={{ height: '40px' }} />
                     </Typography>
                     <Button color='inherit' onClick={runShowRegister}>Register</Button>
                     <Button color="inherit" onClick={runShowLogin}>Login</Button>
                     <Button color="inherit" onClick={runShowDash}>Dashboard</Button>
-                    <Button color='inherit' onClick={runShowManagerDash}>ManDash</Button>
+                    {/* <Button color='inherit' onClick={runShowManagerDash}>ManDash</Button> */}
                     <Button color='inherit' onClick={runShowCheckout}>Checkout</Button>
                 </Toolbar>
             </AppBar>

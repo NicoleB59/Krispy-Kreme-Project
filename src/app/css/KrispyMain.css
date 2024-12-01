@@ -1,0 +1,18 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F5F5F5; /* Light background */
+}
+
+h2 {
+    color: #ff3333; /* Krispy Kreme red */
+}
+
+button {
+    background-color: #ff3333; /* Krispy Kreme red */
+    color: white;
+}
+
+button:hover {
+    background-color: #cc2929; /* Darker red for hover effect */
+}
+
