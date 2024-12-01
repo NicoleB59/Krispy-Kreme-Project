@@ -58,30 +58,38 @@ export default function MyApp() {
     };
 
     const menuItems = [
-        { label: 'Home', action: () => console.log('Home clicked') },
-        { label: 'Store', action: () => console.log('Store clicked') },
-        { label: 'Register', action: () => console.log('Register clicked') },
-        { label: 'Login', action: () => console.log('Login clicked') },
-        { label: 'Cart', action: () => console.log(runShowCart) },
-        { label: 'Checkout', action: () => console.log(runShowCheckout) }
+        { label: 'Home', action: runShowHome },
+        { label: 'Store', action: runShowDash },
+        { label: 'Register', action: runShowRegister },
+        { label: 'Login', action: runShowLogin },
+        { label: 'Cart', action: runShowCart },
+        { label: 'Checkout', action: runShowCheckout }
     ];
     
-    // Fetch products, weather, and orders
+    // Fetch Products
     useEffect(() => {
         fetch('/api/getProducts')
             .then((res) => res.json())
-            .then((products) => setProducts(products));
+            .then((products) => setProducts(products))
+            .catch((err) => console.error("Error fetching products:", err));
+    }, []);
 
+    // Fetch Weather Data
+    useEffect(() => {
         fetch('/api/getWeather')
             .then((res) => res.json())
             .then((weatherData) => setWeatherData(weatherData))
-            .catch((err) => console.error("Error fetching weather", err));
+            .catch((err) => console.error("Error fetching weather:", err));
+    }, []);
 
-            fetch('/api/getCart')
+    // Fetch Cart Items
+    useEffect(() => {
+        fetch('/api/getCart')
             .then((res) => res.json())
             .then((cartItems) => setCart(cartItems))
             .catch((err) => console.error("Error fetching cart items:", err));
     }, []);
+
 
     // Handle role change
     const handleRoleChange = (event) => {
@@ -213,14 +221,16 @@ export default function MyApp() {
                         {/* Desktop Dropdown Menu */}
                         <Button color="inherit" onClick={handleMenuClick}><MenuIcon /></Button>
                         <Menu
-                        anchorEl={anchorEl}
-                        open={Boolean(anchorEl)}
-                        onClose={handleMenuClose}
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={handleMenuClose}
                         >
-                        {menuItems.map((item, index) => (
-                            <MenuItem key={index} onClick={item.action}>{item.label}</MenuItem>
-                        ))}
-                    </Menu>
+                            {menuItems.map((item, index) => (
+                                <MenuItem key={index} onClick={() => { item.action(); handleMenuClose(); }}>
+                                    {item.label}
+                                </MenuItem>
+                            ))}
+                        </Menu>
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         <Image src={KrispyKemeLogo} alt="Krispy Kreme" height={50}/>
@@ -236,6 +246,8 @@ export default function MyApp() {
 
             {showHome && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }} className="home-page">
+                        {/*current temperature fetched from the API*/}
+                        Todays temp: {JSON.stringify(weather.temp)}
                     <div>
                         <Typography variant="h4" component="h1" sx={{ mt: 2, textAlign: 'center' }}>
                             Welcome to Krispy Kreme!
@@ -381,7 +393,7 @@ export default function MyApp() {
                 </Box>
             )}
 
-            {showDash && (
+            {showDash && (    
                 <Grid container spacing={2} sx={{ mt: 2 }}>
                     {products.map((item, i) => (
                         <Grid item xs={12} sm={6} md={4} key={i}>
