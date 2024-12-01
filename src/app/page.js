@@ -40,6 +40,8 @@ export default function MyApp() {
     const [loginError, setLoginError] = useState(null); // State to store login error
     const [drawerOpen, setDrawerOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null); // For dropdown menu
+    const [orders, setOrders] = useState([]);
+    const [total, setTotal] = useState(0);
 
     // Open dropdown menu
     const handleMenuClick = (event) => {
@@ -87,6 +89,16 @@ export default function MyApp() {
             .then((res) => res.json())
             .then((cartItems) => setCart(cartItems))
             .catch((err) => console.error("Error fetching cart items:", err));
+    }, []);
+
+    useEffect(() => {
+        // Fetch orders from API
+        fetch('/api/getOrders') // Adjust the URL according to your API
+          .then(res => res.json())
+          .then(data => {
+            setOrders(data);
+            setTotal(data.reduce((sum, order) => sum + order.price, 0)); // Assuming price is stored in each order
+          });
     }, []);
 
 
@@ -207,9 +219,11 @@ export default function MyApp() {
     }
     
     // Function to add products to the cart
-    function putInCart(pname) {
-        console.log("Putting in cart:", pname);
-        fetch(`/api/putInCart?pname=${pname}`);
+    function putInCart(pname, price) {
+        console.log("Putting in cart:", pname, price);
+        
+        // Direct fetch request with pname and price
+        fetch(`/api/putInCart?pname=${encodeURIComponent(pname)}&price=${encodeURIComponent(price)}`);
     }
 
     return (
@@ -363,9 +377,24 @@ export default function MyApp() {
             )}
             {showCheckout && (
                 <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                    THIS IS THE CHECKOUT PAGE
+                    <Typography variant="h4" sx={{ textAlign: 'center' }}>
+                        Checkout Page
+                    </Typography>
+                    {/* You can add your checkout details here */}
+                    
+                    <Box sx={{ textAlign: 'center', mt: 4 }}>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            sx={{ width: '100%', padding: '10px', fontSize: '16px' }} 
+                            onClick={() => console.log('Proceeding to Buy...')}  // Replace this with your actual action for BUY
+                        >
+                        BUY
+                        </Button>
+                    </Box>
                 </Box>
             )}
+
             {showCart && (
                 <Box sx={{ p: 2 }}>
                     <Typography variant="h4" sx={{ textAlign: 'center' }}>
@@ -380,14 +409,23 @@ export default function MyApp() {
                                 </div>
                             </Grid>
                         ))}
-                        {cart.length === 0 && (
-                            <Typography variant="body2" sx={{ textAlign: 'center', mt: 2 }}>
-                                Your cart is empty!
-                            </Typography>
+                        {/* Checkout Button */}
+                        {cart.length > 0 && (
+                            <Box sx={{ width: '100%', mt: 3, display: 'flex', justifyContent: 'center' }}>
+                                <Button 
+                                    variant="contained" 
+                                    color="primary" 
+                                    onClick={runShowCheckout} 
+                                    sx={{ width: '200px' }}
+                                >
+                                Checkout
+                                </Button>
+                            </Box>
                         )}
                     </Grid>
                 </Box>
             )}
+
 
             {showDash && (    
                 <Grid container spacing={2} sx={{ mt: 2 }}>
@@ -399,7 +437,7 @@ export default function MyApp() {
                                     component="div"
                                     className="showDash-card-title"
                                 >
-                                    Unique ID: {item._id}
+                                    {/* Unique ID: {item._id} */}
                                     <br />
                                     {item.pname}
                                 </Typography>
