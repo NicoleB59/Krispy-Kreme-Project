@@ -11,10 +11,11 @@ import Radio from '@mui/material/Radio';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu'; // Corrected import for MenuIcon
-import Typography from '@mui/material/Typography'; // Corrected import for Typography
+import MenuIcon from '@mui/icons-material/Menu'; 
+import Typography from '@mui/material/Typography'; 
 import { useState, useEffect } from 'react';
-import 'C:/Users/Bulal/Desktop/Rich Web Project/krispy-app/kk-ap/src/app/css/KrispyMain.css';  // Assuming the CSS file is in the same directory as your page.js
+import KrispyKemeLogo from "./images/KrispyKremeLogo.png";
+
 
 export default function MyApp() {
     // State variables
@@ -167,7 +168,7 @@ export default function MyApp() {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <img src="C:\Users\Bulal\Desktop\Rich Web Project\krispy-app\kk-ap\src\app\images\KrispyKremeLogo.png" alt="Krispy Kreme" style={{ height: '40px' }} />
+                        <Image src={KrispyKemeLogo} alt="Krispy Kreme" height={50} />
                     </Typography>
                     <Button color='inherit' onClick={runShowRegister}>Register</Button>
                     <Button color="inherit" onClick={runShowLogin}>Login</Button>

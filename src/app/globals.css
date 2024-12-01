@@ -4,13 +4,12 @@
 } */
 
 :root {
-  --background: #ffffff; /* White background for light theme */
-  --foreground: #171717; /* Dark text color */
-  --primary-color: #cc0000; /* Krispy Kreme Red */
-  --secondary-color: #2e7d32; /* Krispy Kreme Green */
-  --highlight-color: #f8f8f8; /* Subtle off-white background */
-  --button-color: #e74c3c; /* Bright button color */
-  --button-text: #ffffff; /* White text for buttons */
+  --background: #ffffff; 
+  --foreground: #171717; 
+  --primary-color: #cc0000; 
+  --secondary-color: #2e7d32; 
+  --highlight-color: #f8f8f8; 
+  --button-text: #ffffff; 
 }
 
 
@@ -54,8 +53,10 @@ a {
 }
 
 h1, h2, h3, h4 {
+  padding-top: 30px;
   font-weight: bold;
   color: var(--primary-color); /* Krispy Kreme Red for headings */
+  text-align: center;
 }
 
 button, .MuiButton-root {
@@ -129,6 +130,31 @@ button:hover, .MuiButton-root:hover {
     padding: 8px;
   }
 }
+
+/* Global styles for TextField */
+.MuiTextField-root {
+  font-size: 15px; /* Smaller text size */
+  padding: 8px; /* Smaller padding for the container */
+  width: 100%; /* Full width for responsiveness */
+}
+
+/* Style the input element */
+.MuiInputBase-input {
+  font-size: 14px; /* Smaller font size inside the input field */
+  padding: 8px; /* Smaller padding for the input field */
+}
+
+/* Style the label */
+.MuiInputLabel-root {
+  font-size: 12px; /* Smaller label font size */
+  top: -5px; /* Adjust position of the label */
+}
+
+/* Style the helper text (if present) */
+.MuiFormHelperText-root {
+  font-size: 12px; /* Smaller helper text font size */
+}
+
 
 
 
