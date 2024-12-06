@@ -24,16 +24,16 @@ export default function Home() {
     /*All the content into a constant variable titled data then we can use the data.get() func 
     to get the email and password variables from the 
     form data to make them a little bit more accessible*/
-    let email = data.get('email')
-    let pass = data.get('pass')
-    let telephone = data.get('telephone')
-    let name = data.get('name')
+    let email = data.get('email');
+    let pass = data.get('pass');
+    let telephone = data.get('telephone');
+    let name = data.get('name');
 
     // Log the form data for debugging
-    console.log("Sent email:" + email)
-    console.log("Sent pass:" + pass)
-    console.log("Sent telephone: " + telephone)
-    console.log("Sent name: " + name)
+    console.log("Sent email:" + email);
+    console.log("Sent pass:" + pass);
+    console.log("Sent telephone: " + telephone);
+    console.log("Sent name: " + name);
 
     // if you want to redirect the infomation just change the redirectory
     runDBCallAsync('/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}');
@@ -46,9 +46,9 @@ export default function Home() {
     const res = await fetch(url);  // Make a fetch request to the given URL
     const data = await res.json(); // Parse the response to JSON
     if(data.data== "valid"){
-    console.log("login is valid!")
+    console.log("login is valid!");
     } else {
-    console.log("not valid ")
+    console.log("not valid ");
     }
   }
 

@@ -129,26 +129,26 @@ button:hover, .MuiButton-root:hover {
 
 /* Global styles for TextField */
 .MuiTextField-root {
-  font-size: 15px; /* Smaller text size */
-  padding: 8px; /* Smaller padding for the container */
-  width: 100%; /* Full width for responsiveness */
+  font-size: 15px; 
+  padding: 8px; 
+  width: 100%; 
 }
 
 /* Style the input element */
 .MuiInputBase-input {
-  font-size: 14px; /* Smaller font size inside the input field */
-  padding: 8px; /* Smaller padding for the input field */
+  font-size: 14px; 
+  padding: 8px; 
 }
 
 /* Style the label */
 .MuiInputLabel-root {
-  font-size: 12px; /* Smaller label font size */
-  top: -5px; /* Adjust position of the label */
+  font-size: 12px;
+  top: -5px;
 }
 
 /* Style the helper text (if present) */
 .MuiFormHelperText-root {
-  font-size: 12px; /* Smaller helper text font size */
+  font-size: 12px; 
 }
 
 
@@ -167,7 +167,7 @@ button:hover, .MuiButton-root:hover {
   text-align: center;
   max-width: 450px;
   padding: 10px;
-  padding-top: 25px; /* Add padding to the top */
+  padding-top: 25px;
   background-color: var(--highlight-color);
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -179,19 +179,19 @@ button:hover, .MuiButton-root:hover {
   color: var(--primary-color);
   font-family: 'Times New Roman', Times, serif;
   margin-bottom: 20px;
-  padding-top: 25px; /* Add padding to the top */
+  padding-top: 25px; 
 }
 
 /* Style for the radio buttons and checkbox for alignment */
 .centered-form .MuiFormControl-root {
-  margin-bottom: 20px; /* Space between each control */
+  margin-bottom: 20px; 
 }
 
 /* Ensure the button is centered */
 .centered-form button {
   width: 100%;
   text-align: center;
-  max-width: 300px; /* Optional: You can adjust the button width */
+  max-width: 300px; 
   background-color: var(--primary-color);
   color: var(--button-text);
   border-radius: 5px;
@@ -208,7 +208,7 @@ button:hover, .MuiButton-root:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Ensure the form takes the full height */
+  height: 100%; 
 }
 
 /* Login Form Container */
@@ -217,11 +217,11 @@ button:hover, .MuiButton-root:hover {
   text-align: center;
   max-width: 450px;
   padding: 10px;
-  padding-top: 25px; /* Add padding to the top */
+  padding-top: 25px;
   background-color: var(--highlight-color);
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Prevent form from overflowing */
+  overflow: hidden; 
 }
 
 /* Login Form Header */
@@ -230,19 +230,19 @@ button:hover, .MuiButton-root:hover {
   color: var(--primary-color);
   font-family: 'Times New Roman', Times, serif;
   margin-bottom: 20px;
-  padding-top: 25px; /* Add padding to the top */
+  padding-top: 25px; 
 }
 
 /* Style for the radio buttons and checkbox for alignment */
 .login-form .MuiFormControl-root {
-  margin-bottom: 20px; /* Space between each control */
+  margin-bottom: 20px;
 }
 
 /* Ensure the login button is centered */
 .login-form button {
   width: 100%;
   text-align: center;
-  max-width: 300px; /* Optional: You can adjust the button width */
+  max-width: 300px; 
   background-color: var(--primary-color);
   color: var(--button-text);
   border-radius: 5px;
@@ -260,8 +260,8 @@ button:hover, .MuiButton-root:hover {
 
 /* Style for the product card in showDash */
 .showDash-card {
-  display: flex; /* Use flexbox */
-  flex-direction: column; /* Stack items vertically */
+  display: flex; 
+  flex-direction: column; 
   justify-content: center; /* Center items vertically */
   align-items: center; /* Center items horizontally */
   border: 1px solid #ddd;
@@ -283,7 +283,7 @@ button:hover, .MuiButton-root:hover {
   font-size: 1.25rem;
   font-weight: bold;
   color: #333;
-  text-align: center; /* Ensure text is centered */
+  text-align: center;
 }
 
 /* Style for the product price in showDash */
@@ -291,7 +291,7 @@ button:hover, .MuiButton-root:hover {
   margin-bottom: 16px;
   font-size: 1rem;
   color: #666;
-  text-align: center; /* Ensure text is centered */
+  text-align: center; 
 }
 
 /* Style for the button in showDash */

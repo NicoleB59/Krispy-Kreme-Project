@@ -15,14 +15,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography'; 
 import Menu from '@mui/material/Menu';
 import MenuItem from "@mui/material/MenuItem"
-import { useState, useEffect } from 'react';    // Import hooks to manage state and side effects.
-import Image from 'next/image';                 // Import Image from Next.js for optimized image handling.
+import { useState, useEffect } from 'react';    
+import Image from 'next/image';                 
 import KrispyKemeLogo from "./images/Krispy_Kreme_logo.png";
 import DozenBox from "./images/dozen.png";
 import DoubleDozen from "./images/double_dozen.png";
 import birthdayPack from "./images/birthday_pack.png"
 import PromBanner from "./images/Promo.png";
-import Grid from "@mui/material/Grid";          // Import Grid component to create a responsive layout.
+import Grid from "@mui/material/Grid";         
 
 
 export default function MyApp() {
@@ -39,8 +39,8 @@ export default function MyApp() {
     const [role, setRole] = useState('customer');                       // State for storing the user role (e.g., customer, manager).
     const [loginError, setLoginError] = useState(null);                 // State to store login error
     const [anchorEl, setAnchorEl] = useState(null);                     // For dropdown menu
-    const [orders, setOrders] = useState([]);                           // State for storing order data.
-    const [total, setTotal] = useState(0);                              // State for calculating the total price of cart items.
+    const [orders, setOrders] = useState([]);                           // State for storing order data. NOT USED YET
+    const [total, setTotal] = useState(0);                              // State for calculating the total price of cart items. NOT USED YET
 
     // Open dropdown menu
     const handleMenuClick = (event) => {    // Handle click event on menu button to open the dropdown.
@@ -92,7 +92,6 @@ export default function MyApp() {
           });
     }, []);
 
-
     // Handle role change/Function to handle role selection (customer or manager).
     const handleRoleChange = (event) => {
         setRole(event.target.value); // Update the role based on selected value.
@@ -117,6 +116,7 @@ export default function MyApp() {
         runDBCallAsync(`/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}&role=${role}`);
     };
 
+    
     const handleLoginSubmit = (event) => {  // Handle login form submission.
         event.preventDefault();  // Prevent default form submission behavior.
         const data = new FormData(event.currentTarget);  // Extract form data.
@@ -131,9 +131,9 @@ export default function MyApp() {
         runDBCallAsync(`/api/login?email=${email}&pass=${pass}`);
     };
 
-    // REGISTRATION
-    async function runDBCallAsync(url) {  
-        const res = await fetch(url);  // Wait for the fetch request to complete, which retrieves data from the specified URL
+    // REGISTRATION 
+    async function runDBCallAsync() {  
+        const res = await fetch('/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}&role=${role}');  // Wait for the fetch request to complete, which retrieves data
         const data = await res.json();  // Parse the response body as JSON and store it in the 'data' variable
     
         if (data.data === "valid") {  // Check if the 'data' object contains a property 'data' with the value "valid".
@@ -391,7 +391,6 @@ export default function MyApp() {
                     </Box>
                 </Box>
             )}
-
 
             {showCart && (
                 <Box sx={{ p: 2 }}>

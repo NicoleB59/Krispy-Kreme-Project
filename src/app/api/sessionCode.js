@@ -6,6 +6,6 @@ export async function getCustomSession(){
     let pw = "VIi8pH38vD8ZLgEZclSa7an3olx4pkh6pvBj9fGZf"
     const session = await getIronSession(cookies(), { password: pw, cookieName: "app" });
     
-    return session
+    return session;
 }
 
