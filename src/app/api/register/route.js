@@ -11,7 +11,7 @@ export async function GET(req, res) {
     await client.connect();
     console.log('Connected successfully to server');
     const email = searchParams.get('email'); // Add email
-    const pass = searchParams.get('pass');  // Add pass
+    // const pass = searchParams.get('pass');  // Add pass
     const role = searchParams.get('role'); // Add role
     const dob = searchParams.get('dob'); // add dob 
     const bcrypt = require('bcrypt');
