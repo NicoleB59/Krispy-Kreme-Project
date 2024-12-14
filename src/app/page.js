@@ -41,6 +41,7 @@ export default function MyApp() {
     const [anchorEl, setAnchorEl] = useState(null);                     // For dropdown menu
     const [orders, setOrders] = useState([]);                           // State for storing order data. NOT USED YET
     const [total, setTotal] = useState(0);                              // State for calculating the total price of cart items. NOT USED YET
+    const [ManDash, setManDash] = useState();
 
     // Open dropdown menu
     const handleMenuClick = (event) => {    // Handle click event on menu button to open the dropdown.
@@ -198,6 +199,8 @@ export default function MyApp() {
         setShowCheckout(false);
         setShowCart(true);
     }
+
+    
     
     // Function to add products to the cart
     function putInCart(pname, price) {
