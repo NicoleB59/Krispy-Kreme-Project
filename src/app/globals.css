@@ -105,6 +105,7 @@ button:hover, .MuiButton-root:hover {
 
 .MuiToolbar-root {
   padding: 0 20px;
+  background-color: #cc0000;
 }
 
 .MuiIconButton-root {
