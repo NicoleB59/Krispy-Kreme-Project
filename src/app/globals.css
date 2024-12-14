@@ -119,6 +119,7 @@ button:hover, .MuiButton-root:hover {
 
 .WellKrispyKreme {
   font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
+  font-size: large;
 }
 
 @media (max-width: 768px) {
