@@ -115,7 +115,10 @@ button:hover, .MuiButton-root:hover {
 
 .MuiTypography-root {
   font-weight: bold;
-  font-family: 'Times New Roman', Times, serif;
+}
+
+.WellKrispyKreme {
+  font-family: Impact, 'Haettenschweiler', 'Arial Narrow Bold', sans-serif;
 }
 
 @media (max-width: 768px) {
