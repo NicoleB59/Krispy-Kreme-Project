@@ -17,7 +17,7 @@ export async function GET(req, res) {
     const saltRounds = 10;
     const hash = bcrypt.hashSync(pass, saltRounds);
     const db = client.db(dbName);
-    const collection = db.collection('login'); // collection name
+    const collection = db.collection('register'); // collection name
     const findResult = await collection.find({"username": email}).toArray();
     console.log(email); // log to the console
     console.log(pass);  // log to the console
