@@ -14,7 +14,7 @@ export async function GET(req, res) {
     const pass = searchParams.get('pass');  // Add pass
     const role = searchParams.get('role'); // Add role
     const dob = searchParams.get('dob'); // add dob 
-    const bcrpt = require('bcrypt');
+    const bcrypt = require('bcrypt');
     const saltRounds = 10;
     const hash = bcrypt.hashSync(pass, saltRounds);
     console.log(email); // log to the console
@@ -23,7 +23,7 @@ export async function GET(req, res) {
     console.log(dob); // log to the console
     const findResult = await collection.insertOne({"username": email, "pass": hash, "dob": dob});
     const db = client.db(dbName);
-    const collection = db.collection('register'); // collection name
+    const collection = db.collection('login'); // collection name
     // at the end of the process we need to send something back.
     return Response.json({ "data":"ok" });
 }
