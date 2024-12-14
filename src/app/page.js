@@ -245,7 +245,7 @@ export default function MyApp() {
                     Todays temp: {JSON.stringify(weather.temp)}
                     <div>
                         {/* Main heading for the page */}
-                        <Typography class="WellKrispyKreme" variant="h4" component="h1" sx={{ mt: 2, textAlign: 'center' }}>
+                        <Typography class="WellKrispyKreme" variant="h3" component="h1" sx={{ mt: 2, textAlign: 'center' }}>
                             Welcome to Krispy Kreme!
                         </Typography>
                         {/* Subheading with a short description of the store */}
