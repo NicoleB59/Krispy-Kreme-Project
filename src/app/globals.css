@@ -98,6 +98,7 @@ button:hover, .MuiButton-root:hover {
   background-color: var(--secondary-color);
 }
 
+/**/
 .MuiAppBar-root {
   background-color: var(--primary-color); 
   color: white; 
@@ -114,6 +115,7 @@ button:hover, .MuiButton-root:hover {
 
 .MuiTypography-root {
   font-weight: bold;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 @media (max-width: 768px) {
