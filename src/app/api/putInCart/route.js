@@ -11,7 +11,7 @@ export async function GET(req, res) {
     console.log(price);
    // =================================================
     const { MongoClient } = require('mongodb');
-    const url = process.env.DB_ADDRESS
+    const url = process.env.DB_ADDRESS;
     const client = new MongoClient(url);
     const dbName = 'Krispy-app'; // database name
     await client.connect();
@@ -22,7 +22,7 @@ export async function GET(req, res) {
     const insertResult = await collection.insertOne(myobj);
    //==========================================================
     // at the end of the process we need to send something back.
-    return Response.json({ "data":"" + "inserted" + ""})
+    return Response.json({ "data":"" + "inserted" + ""});
 }
   
     
