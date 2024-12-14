@@ -24,6 +24,7 @@ export async function GET(req, res) {
     const db = client.db(dbName);
     const collection = db.collection('register'); // collection name
     const findResult = await collection.insertOne({"username": email, "pass": hash, "dob": dob});
+    console.log('Found documents =>', findResult);
     // at the end of the process we need to send something back.
     return Response.json({ "data":"ok" });
 }
