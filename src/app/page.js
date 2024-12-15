@@ -114,11 +114,10 @@ export default function MyApp() {
         console.log("Sent name:", name);
         console.log("Role selected:", role);
 
-        // // Call the registration API with the form data.
-        // runDBCallAsync(`/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}&role=${role}`);
+        // Call the registration API with the form data.
+        runDBCallAsync(`/api/register`, email, pass, telephone, name);
     };
 
-    
     const handleLoginSubmit = (event) => {  // Handle login form submission.
         event.preventDefault();  // Prevent default form submission behavior.
         const data = new FormData(event.currentTarget);  // Extract form data.
@@ -134,16 +133,18 @@ export default function MyApp() {
     };
 
     // REGISTRATION 
-    // async function runDBCallAsync() {  
-    //     const res = await fetch('');  // Wait for the fetch request to complete, which retrieves data
-    //     const data = await res.json();  // Parse the response body as JSON and store it in the 'data' variable
-    
-    //     if (data.data === "valid") {  // Check if the 'data' object contains a property 'data' with the value "valid".
-    //         console.log("Registration is valid!");  // Log a success message if registration is valid.
-    //     } else {  // If the response data is not "valid", the registration has failed.
-    //         console.log("Registration failed");  // Log a failure message.
-    //     }
-    // }
+    async function runDBCallAsync() {  
+        fetch(url, {
+            method: 'POST', // Type of the request
+            headers: {
+                'Content-Type': 'application/json', //Type of data being sent
+            
+            },
+            body: JSON.stringify({
+                email, pass, telephone, name
+            })
+        })
+    }
     
 
     // Functions to show different pages

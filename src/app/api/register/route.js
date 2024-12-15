@@ -1,6 +1,6 @@
 import { sealData } from 'iron-session';
 
-export async function GET(req, res) {
+export async function POST(req, res) {
     // Make a note we are on
     // the api. This goes to the console.
     console.log("in the register api page")
@@ -12,13 +12,16 @@ export async function GET(req, res) {
     await client.connect(); // connect to database
     console.log('Connected successfully to server');
 
+    const body = await req.json(); // turns the string into a json object
+    const{email, pass, telephone, name} = body;
+
     // Parse search parameters
-    const email = searchParams.get('email'); // Add email
-    const telephone = searchParams.get('telephone');
-    const name = searchParams.get('name'); 
-    const pass = searchParams.get('pass');  // Add pass
-    const role = searchParams.get('role'); // Add role
-    const dob = searchParams.get('dob'); // add dob 
+    // const email = searchParams.get('email'); // Add email
+    // const telephone = searchParams.get('telephone');
+    // const name = searchParams.get('name'); 
+    // const pass = searchParams.get('pass');  // Add pass
+    // const role = searchParams.get('role'); // Add role
+    // const dob = searchParams.get('dob'); // add dob 
 
     // Hashing passwords - Import the bcrypt library
     const bcrypt = require('bcrypt');
@@ -26,11 +29,11 @@ export async function GET(req, res) {
     const saltRounds = 10;
     // Hash the user's password securely
     const hash = bcrypt.hashSync(pass, saltRounds);
-    console.log(email); // log to the console
-    console.log(pass); // log to the console
-    console.log(role); // log to the console
-    console.log(dob); // log to the console
-    console.log(name,telephone);
+    // console.log(email); // log to the console
+    // console.log(pass); // log to the console
+    // console.log(role); // log to the console
+    // console.log(dob); // log to the console
+    // console.log(name,telephone);
 
     const db = client.db(dbName); // access the specific database
     const collection = db.collection('user'); // collection name
