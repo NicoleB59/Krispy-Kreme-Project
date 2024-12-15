@@ -117,11 +117,11 @@ export default function MyApp() {
         let email = data.get('email');
         let pass = data.get('pass');
         //pull in validator
-        var validate = require("email-validator");
+        var emailvalidate = require("email-validator");
         var passvalidate = require("pass-validator");
         //run the validator
-        let emailCheck = validator.validate(email);
-        let passCheck = validator.validate(pass);
+        let emailCheck = emailvalidate.validate(email);
+        let passCheck = passvalidate.validate(pass);
         //print the status true or false
         console.log("email status" + emailCheck);
         console.log("password status" + passCheck);
