@@ -112,7 +112,7 @@ export default function MyApp() {
         let errorMessage = '';
 
         const data = new FormData(event.currentTarget);
-        
+
         //get email
         let email = data.get('email');
         //pull in validator
@@ -128,6 +128,7 @@ export default function MyApp() {
         return errorMessage;
     }
 
+    // Register handlesubmit
     const handleSubmit = (event) => {  // Handle registration form submission.
         event.preventDefault();  // Prevent default form submission behavior.
 
@@ -139,40 +140,53 @@ export default function MyApp() {
 
         // if we have an error
         if(errorMessage.length > 0){
-        setOpen(true); // open the dialog and show the user the error.
+            setOpen(true); // open the dialog and show the user the error.
         } else {
-        // if we do not get an error
-        const data = new FormData(event.currentTarget);  // Extract form data.
-        const email = data.get('email');  // Get email from form data.
-        const pass = data.get('pass');  // Get password from form data.
-        const telephone = data.get('telephone');  // Get telephone from form data.
-        const name = data.get('name');  // Get name from form data.
-        const role = data.get('role');
+            // if we do not get an error
+            const data = new FormData(event.currentTarget);  // Extract form data.
+            const email = data.get('email');  // Get email from form data.
+            const pass = data.get('pass');  // Get password from form data.
+            const telephone = data.get('telephone');  // Get telephone from form data.
+            const name = data.get('name');  // Get name from form data.
+            const role = data.get('role');
 
-        // Log the form values for debugging.
-        console.log("Sent email:", email);
-        console.log("Sent pass:", pass);
-        console.log("Sent telephone:", telephone);
-        console.log("Sent name:", name);
-        console.log("Role selected:", role);
+            // Log the form values for debugging.
+            console.log("Sent email:", email);
+            console.log("Sent pass:", pass);
+            console.log("Sent telephone:", telephone);
+            console.log("Sent name:", name);
+            console.log("Role selected:", role);
 
-        // Call the registration API with the form data.
-        runDBCallAsync(`/api/register`, email, pass, telephone, name, role);
+            // Call the registration API with the form data.
+            runDBCallAsync(`/api/register`, email, pass, telephone, name, role);
         }
     };
 
+    // Login handlesubmit
     const handleLoginSubmit = (event) => {  // Handle login form submission.
         event.preventDefault();  // Prevent default form submission behavior.
-        const data = new FormData(event.currentTarget);  // Extract form data.
-        const email = data.get('email');  // Get email from form data.
-        const pass = data.get('pass');  // Get password from form data.
 
-        // Log the login data for debugging.
-        console.log("Login email:", email);
-        console.log("Login pass:", pass);
+        // call out custom validator
+        let errorMessage = validateForm(event);
 
-        // Call the login API with the form data.
-        runDBCallAsync(`/api/login`, email, pass);
+        // save the mesage
+        setErrorHolder(errorMessage);
+
+        // if we have an error
+        if(errorMessage.length > 0){
+            setOpen(true); // open the dialog and show the user the error.
+        } else {
+            const data = new FormData(event.currentTarget);  // Extract form data.
+            const email = data.get('email');  // Get email from form data.
+            const pass = data.get('pass');  // Get password from form data.
+
+            // Log the login data for debugging.
+            console.log("Login email:", email);
+            console.log("Login pass:", pass);
+
+            // Call the login API with the form data.
+            runDBCallAsync(`/api/login`, email, pass);
+        }
     };
 
     // REGISTRATION 
