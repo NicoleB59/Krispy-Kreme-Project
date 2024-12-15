@@ -1,3 +1,5 @@
+import { sealData } from 'iron-session';
+
 export async function GET(req, res) {
     // Make a note we are on
     // the api. This goes to the console.
@@ -12,6 +14,8 @@ export async function GET(req, res) {
 
     // Parse search parameters
     const email = searchParams.get('email'); // Add email
+    const telephone = searchParams.get('telephone');
+    const name = searchParams.get('name'); 
     const pass = searchParams.get('pass');  // Add pass
     const role = searchParams.get('role'); // Add role
     const dob = searchParams.get('dob'); // add dob 
@@ -26,10 +30,11 @@ export async function GET(req, res) {
     console.log(pass); // log to the console
     console.log(role); // log to the console
     console.log(dob); // log to the console
-    
+    console.log(name,telephone);
+
     const db = client.db(dbName); // access the specific database
     const collection = db.collection('user'); // collection name
-    const findResult = await collection.insertOne({"username": email, "pass": hash,"role": role ,"dob": dob});
+    const findResult = await collection.insertOne({"username": email, "pass": hash,"role": role, "name": name,"telephone": telephone,"dob": dob});
     // log the result of the database insertion for debugging
     console.log('Found documents =>', findResult);
     // at the end of the process we need to send something back.
