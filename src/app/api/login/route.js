@@ -15,7 +15,6 @@ export async function GET(req, res) {
 
     // Parse search parameters
     // const email = searchParams.get('email'); // Add email
-    // const name = searchParams.get('name'); 
     // const pass = searchParams.get('pass');  // Add pass
 
     // Hashing passwords - Import the bcrypt library
@@ -27,8 +26,6 @@ export async function GET(req, res) {
     // console.log(email); // log to the console
     // console.log(pass); // log to the console
     // console.log(role); // log to the console
-
-    // console.log(name,telephone);
 
     const db = client.db(dbName); // access the specific database
     const collection = db.collection('user'); // collection name

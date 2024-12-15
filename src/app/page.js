@@ -23,7 +23,13 @@ import DoubleDozen from "./images/double_dozen.png";
 import birthdayPack from "./images/birthday_pack.png"
 import PromBanner from "./images/Promo.png";
 import Grid from "@mui/material/Grid";         
-import { containerClasses } from '@mui/material';
+var validator = require("email-validator");
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 
 
 export default function MyApp() {
@@ -43,6 +49,9 @@ export default function MyApp() {
     const [orders, setOrders] = useState([]);                           // State for storing order data. NOT USED YET
     const [total, setTotal] = useState(0);                              // State for calculating the total price of cart items. NOT USED YET
     const [ManDash, setManDash] = useState();
+    const [open, setOpen] = React.useState(false);
+
+
 
     // Open dropdown menu
     const handleMenuClick = (event) => {    // Handle click event on menu button to open the dropdown.
@@ -99,8 +108,40 @@ export default function MyApp() {
         setRole(event.target.value); // Update the role based on selected value.
     };
 
+    const validateForm = (event) => {
+        let errorMessage = '';
+
+        const data = new FormData(event.currentTarget);
+        
+        //get email
+        let email = data.get('email');
+        //pull in validator
+        var validate = require("email-validator");
+        //run the validator
+        let emailCheck = validator.validate(email);
+        //print the status true or false
+        console.log("email status" + emailCheck);
+        // if it is false, add to the error message
+        if(emailCheck == false){
+            errorMessage += 'Incorrect email';
+        }
+        return errorMessage;
+    }
+
     const handleSubmit = (event) => {  // Handle registration form submission.
         event.preventDefault();  // Prevent default form submission behavior.
+
+        // call out custom validator
+        let errorMessage = validateForm(event);
+
+        // save the mesage
+        setErrorHolder(errorMessage);
+
+        // if we have an error
+        if(errorMessage.length > 0){
+        setOpen(true); // open the dialog and show the user the error.
+        } else {
+        // if we do not get an error
         const data = new FormData(event.currentTarget);  // Extract form data.
         const email = data.get('email');  // Get email from form data.
         const pass = data.get('pass');  // Get password from form data.
@@ -117,6 +158,7 @@ export default function MyApp() {
 
         // Call the registration API with the form data.
         runDBCallAsync(`/api/register`, email, pass, telephone, name, role);
+        }
     };
 
     const handleLoginSubmit = (event) => {  // Handle login form submission.
@@ -130,12 +172,7 @@ export default function MyApp() {
         console.log("Login pass:", pass);
 
         // Call the login API with the form data.
-        runDBCallAsync(`/api/login`)
-        .then(res => res.json())
-        .then(data => console.log(data));
-
-        // Call the registration API with the form data.
-        runDBCallAsync(`/api/register`, email, pass);
+        runDBCallAsync(`/api/login`, email, pass);
     };
 
     // REGISTRATION 
@@ -144,7 +181,6 @@ export default function MyApp() {
             method: 'POST', // Type of the request
             headers: {
                 'Content-Type': 'application/json', //Type of data being sent
-            
             },
             body: JSON.stringify({
                 email, pass, telephone, name, role
@@ -215,6 +251,16 @@ export default function MyApp() {
         // Direct fetch request with pname and price
         fetch(`/api/putInCart?pname=${encodeURIComponent(pname)}&price=${encodeURIComponent(price)}`);
     }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+    // second
+    const [errorHolder, setErrorHolder] = React.useState(false);
     
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -478,6 +524,34 @@ export default function MyApp() {
                     ))}
                 </Grid>
             )}
+                <React.Fragment>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                    >
+
+                    <DialogTitle id="alert-dialog-title">
+                        {"Error"}
+                    </DialogTitle>
+
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            {errorHolder}
+                        </DialogContentText>
+                    </DialogContent>
+
+                    <DialogActions>
+                        <Button onClick={handleClose} autoFocus>
+                            Close
+                        </Button>
+                    </DialogActions>
+
+                    </Dialog>
+
+                </React.Fragment>
         </Box>
     );
+
 }
