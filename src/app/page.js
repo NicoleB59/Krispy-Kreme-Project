@@ -114,8 +114,8 @@ export default function MyApp() {
         console.log("Sent name:", name);
         console.log("Role selected:", role);
 
-        // Call the registration API with the form data.
-        runDBCallAsync(`/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}&role=${role}`);
+        // // Call the registration API with the form data.
+        // runDBCallAsync(`/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}&role=${role}`);
     };
 
     
