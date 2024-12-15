@@ -130,13 +130,16 @@ export default function MyApp() {
         console.log("Login pass:", pass);
 
         // Call the login API with the form data.
-        runDBCallAsync(`/api/login?email=${email}&pass=${pass}`)
+        runDBCallAsync(`/api/login`)
         .then(res => res.json())
         .then(data => console.log(data));
+
+        // Call the registration API with the form data.
+        runDBCallAsync(`/api/register`, email, pass);
     };
 
     // REGISTRATION 
-    async function runDBCallAsync() {  
+    async function runDBCallAsync(url, email, pass, telephone, name, role) {  
         await fetch(url, {
             method: 'POST', // Type of the request
             headers: {

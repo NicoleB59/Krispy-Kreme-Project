@@ -37,7 +37,7 @@ export async function POST(req, res) {
 
     const db = client.db(dbName); // access the specific database
     const collection = db.collection('user'); // collection name
-    const findResult = await collection.insertOne({"username": email, "pass": hash,"role": role, "name": name,"telephone": telephone,"dob": dob});
+    const findResult = await collection.insertOne({"username": email, "pass": hash,"role": role, "name": name,"telephone": telephone});
     // log the result of the database insertion for debugging
     console.log('Found documents =>', findResult);
     // at the end of the process we need to send something back.
