@@ -41,6 +41,6 @@ export async function POST(req, res) {
     // log the result of the database insertion for debugging
     console.log('Found documents =>', findResult);
     // at the end of the process we need to send something back.
-    return Response.json({ "data":"ok" });
+    return Response.json(findResult);
 }
 
