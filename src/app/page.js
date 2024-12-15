@@ -106,6 +106,7 @@ export default function MyApp() {
         const pass = data.get('pass');  // Get password from form data.
         const telephone = data.get('telephone');  // Get telephone from form data.
         const name = data.get('name');  // Get name from form data.
+        const role = data.get('role');
 
         // Log the form values for debugging.
         console.log("Sent email:", email);
@@ -115,7 +116,7 @@ export default function MyApp() {
         console.log("Role selected:", role);
 
         // Call the registration API with the form data.
-        runDBCallAsync(`/api/register`, email, pass, telephone, name);
+        runDBCallAsync(`/api/register`, email, pass, telephone, name, role);
     };
 
     const handleLoginSubmit = (event) => {  // Handle login form submission.
@@ -141,7 +142,7 @@ export default function MyApp() {
             
             },
             body: JSON.stringify({
-                email, pass, telephone, name
+                email, pass, telephone, name, role
             })
         })
     }

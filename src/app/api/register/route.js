@@ -13,7 +13,7 @@ export async function POST(req, res) {
     console.log('Connected successfully to server');
 
     const body = await req.json(); // turns the string into a json object
-    const{email, pass, telephone, name} = body;
+    const{email, pass, telephone, name, role} = body;
 
     // Parse search parameters
     // const email = searchParams.get('email'); // Add email
