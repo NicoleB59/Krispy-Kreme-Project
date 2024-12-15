@@ -26,6 +26,7 @@ export async function GET(req, res) {
     console.log(pass); // log to the console
     console.log(role); // log to the console
     console.log(dob); // log to the console
+    
     const db = client.db(dbName); // access the specific database
     const collection = db.collection('user'); // collection name
     const findResult = await collection.insertOne({"username": email, "pass": hash,"role": role ,"dob": dob});

@@ -134,16 +134,16 @@ export default function MyApp() {
     };
 
     // REGISTRATION 
-    async function runDBCallAsync() {  
-        const res = await fetch('/api/register?email=${email}&pass=${pass}&telephone=${telephone}&name=${name}&role=${role}');  // Wait for the fetch request to complete, which retrieves data
-        const data = await res.json();  // Parse the response body as JSON and store it in the 'data' variable
+    // async function runDBCallAsync() {  
+    //     const res = await fetch('');  // Wait for the fetch request to complete, which retrieves data
+    //     const data = await res.json();  // Parse the response body as JSON and store it in the 'data' variable
     
-        if (data.data === "valid") {  // Check if the 'data' object contains a property 'data' with the value "valid".
-            console.log("Registration is valid!");  // Log a success message if registration is valid.
-        } else {  // If the response data is not "valid", the registration has failed.
-            console.log("Registration failed");  // Log a failure message.
-        }
-    }
+    //     if (data.data === "valid") {  // Check if the 'data' object contains a property 'data' with the value "valid".
+    //         console.log("Registration is valid!");  // Log a success message if registration is valid.
+    //     } else {  // If the response data is not "valid", the registration has failed.
+    //         console.log("Registration failed");  // Log a failure message.
+    //     }
+    // }
     
 
     // Functions to show different pages
