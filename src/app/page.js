@@ -50,6 +50,8 @@ export default function MyApp() {
     const [total, setTotal] = useState(0);                              // State for calculating the total price of cart items. NOT USED YET
     const [ManDash, setManDash] = useState();
     const [open, setOpen] = React.useState(false);
+    const jsesc = require('jsesc');
+
 
 
 
@@ -114,23 +116,37 @@ export default function MyApp() {
         const data = new FormData(event.currentTarget);
 
         //get email
-        let email = data.get('email');
-        let pass = data.get('pass');
+        const email = jsesc(data.get('email'));
+        let pass = jsesc(data.get('pass'));
         //pull in validator
-        var emailvalidate = require("email-validator");
-        var passvalidate = require("pass-validator");
+        var validator = require("email-validator");
         //run the validator
-        let emailCheck = emailvalidate.validate(email);
-        let passCheck = passvalidate.validate(pass);
+        let emailCheck = validator.validate(email);
+        let passCheck = pass.length === 5 && !/\s/.test(pass);
         //print the status true or false
         console.log("email status" + emailCheck);
         console.log("password status" + passCheck);
         // if it is false, add to the error message
-        if(emailCheck && passCheck == false){
-            errorMessage += 'Incorrect credentials';
+         // Check email validation
+        if (!emailCheck) {
+            errorMessage += 'Incorrect email. ';
         }
+        // Check password validation
+        else if (!passCheck) {
+            errorMessage += 'Password must be exactly 5 characters long, contain no spaces and contain no emojis.';
+        }
+        
+        // Print status to console
+        console.log("Sanitized email: " + email);
+        console.log("Sanitized password: " + pass);
+
         return errorMessage;
-    }
+    };
+
+    const sanitized = jsesc("This is 'safe'", {
+        json: true,
+    });
+    console.log(sanitized);
 
     // Register handlesubmit
     const handleSubmit = (event) => {  // Handle registration form submission.
