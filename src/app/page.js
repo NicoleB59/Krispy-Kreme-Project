@@ -23,6 +23,7 @@ import DoubleDozen from "./images/double_dozen.png";
 import birthdayPack from "./images/birthday_pack.png"
 import PromBanner from "./images/Promo.png";
 import Grid from "@mui/material/Grid";         
+import { containerClasses } from '@mui/material';
 
 
 export default function MyApp() {
@@ -199,8 +200,6 @@ export default function MyApp() {
         setShowCheckout(false);
         setShowCart(true);
     }
-
-    
     
     // Function to add products to the cart
     function putInCart(pname, price) {
@@ -209,7 +208,7 @@ export default function MyApp() {
         // Direct fetch request with pname and price
         fetch(`/api/putInCart?pname=${encodeURIComponent(pname)}&price=${encodeURIComponent(price)}`);
     }
-
+    
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">

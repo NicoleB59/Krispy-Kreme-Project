@@ -4,21 +4,25 @@ export async function GET(req, res) {
     console.log("in the register api page")
     // get the values
     // that were sent across to us
-    const url = process.env.DB_ADDRESS;
-    const { searchParams } = new URL(req.url);
+    // const url = process.env.DB_ADDRESS;
+    // const { searchParams } = new URL(req.url);
+    // const client = new MongoClient(url);
+    // const dbName = 'Krispy-app'; // database name
+    const { MongoClient } = require('mongodb');
+    const url = process.env.DB_ADDRESS
     const client = new MongoClient(url);
     const dbName = 'Krispy-app'; // database name
     await client.connect();
     console.log('Connected successfully to server');
     const email = searchParams.get('email'); // Add email
-    // const pass = searchParams.get('pass');  // Add pass
+    const pass = searchParams.get('pass');  // Add pass
     const role = searchParams.get('role'); // Add role
     const dob = searchParams.get('dob'); // add dob 
     const bcrypt = require('bcrypt');
     const saltRounds = 10;
     const hash = bcrypt.hashSync(pass, saltRounds);
     console.log(email); // log to the console
-    // console.log(pass); // log to the console
+    console.log(pass); // log to the console
     console.log(role); // log to the console
     console.log(dob); // log to the console
     const db = client.db(dbName);
