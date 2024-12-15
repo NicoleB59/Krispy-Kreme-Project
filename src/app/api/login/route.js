@@ -9,24 +9,14 @@ export async function GET(req, res) {
     const dbName = 'Krispy-app'; // database name
     await client.connect(); // connect to database
     console.log('Connected successfully to server');
-
     const body = await req.json(); // turns the string into a json object
     const{email, pass, name} = body;
-
-    // Parse search parameters
-    // const email = searchParams.get('email'); // Add email
-    // const pass = searchParams.get('pass');  // Add pass
-
     // Hashing passwords - Import the bcrypt library
     const bcrypt = require('bcrypt');
     // Define the number of rounds for salting the hash
     const saltRounds = 10;
     // Hash the user's password securely
     const hash = bcrypt.hashSync(pass, saltRounds);
-    // console.log(email); // log to the console
-    // console.log(pass); // log to the console
-    // console.log(role); // log to the console
-
     const db = client.db(dbName); // access the specific database
     const collection = db.collection('user'); // collection name
     const findResult = await collection.insertOne({"username": email, "pass": hash});
